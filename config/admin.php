@@ -1,4 +1,7 @@
 <?php
+
+use SmallRuralDog\Admin\Models\SystemUser;
+
 return [
     'title' => env('ADMIN_TITLE', 'Laravel Admin'),//后台标题
     'domain' => env('ADMIN_DOMAIN'),//后台域名
@@ -15,9 +18,25 @@ return [
     'loginDesc' => '欢迎登录',
 
     'path' => 'admin',
+    'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [
-        'middleware' => ['web', 'auth'],
         'domain' => env('ADMIN_ROUTE_DOMAIN'),
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
+        'middleware' => ['web', 'admin'],
+    ],
+    'auth' => [
+        'guard' => 'admin',
+        'guards' => [
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admin',
+            ],
+        ],
+        'providers' => [
+            'admin' => [
+                'driver' => 'eloquent',
+                'model' => SystemUser::class,
+            ],
+        ],
     ],
 ];

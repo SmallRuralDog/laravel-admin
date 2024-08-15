@@ -8,12 +8,15 @@ use Illuminate\Http\Response;
 class IndexController extends AdminBase
 {
 
+    public array $noNeedLogin = ['root', 'index'];
+
+    public array $noNeedPermission = ['root', 'index', 'userMenus'];
 
     public function root(Request $request): Response
     {
         $theme = $request->cookie('arco-theme');
 
-        $data['amisVersion'] = $amisVersion = '6.7.0';
+        $data['amisVersion'] = $amisVersion = '@6.7.0';
         $data['darkCss'] = '';
         if ($theme == 'dark') {
             $data['darkCss'] = ' <link rel="stylesheet" href="/admin/amis/@' . $amisVersion . '/dark.css"/>';
@@ -27,6 +30,7 @@ class IndexController extends AdminBase
             'loginDesc' => config('admin.loginDesc'),
             'apiBase' => admin_url("/"),
             'prefix' => config('admin.route.prefix'),
+            'openCaptcha' => false,
             'captchaUrl' => route('admin.auth.captcha')
         ];
 

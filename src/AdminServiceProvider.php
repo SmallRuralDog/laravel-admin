@@ -2,11 +2,27 @@
 
 namespace SmallRuralDog\Admin;
 
-use AdminService;
+use Arr;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
 {
+
+    protected array $routeMiddleware = [
+        'admin.auth' => Middleware\AuthCheck::class,
+        'admin.bootstrap' => Middleware\Bootstrap::class,
+        'admin.session' => Middleware\Session::class,
+        'admin.permission' => Middleware\PermissionCheck::class,
+    ];
+
+    protected array $middlewareGroups = [
+        'admin' => [
+            'admin.auth',
+            'admin.bootstrap',
+            'admin.session',
+            'admin.permission',
+        ],
+    ];
 
     public function boot(): void
     {
@@ -14,7 +30,14 @@ class AdminServiceProvider extends ServiceProvider
         //发布配置文件
         $this->publishes([
             __DIR__ . '/../config/admin.php' => config_path('admin.php'),
-        ]);
+        ], 'admin-config');
+
+        //发布资源文件
+        $this->publishes([
+            __DIR__ . '/../admin-web/dist/amis' => public_path('admin/amis'),
+            //__DIR__ . '/../admin-web/dist/assets' => public_path('admin/assets'),
+        ], 'admin-assets');
+
         //加载迁移文件
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         //加载路由文件
@@ -39,5 +62,23 @@ class AdminServiceProvider extends ServiceProvider
             return new AdminService();
         });
 
+        $this->loadAdminAuthConfig();
+        $this->registerRouteMiddleware();
+
+    }
+
+    protected function loadAdminAuthConfig(): void
+    {
+        config(Arr::dot(config('admin.auth', []), 'auth.'));
+    }
+
+    protected function registerRouteMiddleware(): void
+    {
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            app('router')->aliasMiddleware($key, $middleware);
+        }
+        foreach ($this->middlewareGroups as $key => $middleware) {
+            app('router')->middlewareGroup($key, $middleware);
+        }
     }
 }

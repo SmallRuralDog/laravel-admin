@@ -40,6 +40,7 @@
         :rules="[{ required: true, message: ` 验证码不能为空` }]"
         :validate-trigger="['change', 'blur']"
         hide-label
+        v-if="config.opebCaptcha"
       >
         <a-space>
           <a-input v-model="userInfo.verification_code" :placeholder="`验证码`">
@@ -88,7 +89,7 @@ const userStore = useUserStore()
 const codeUrl = ref(config.value.captchaUrl)
 
 const reloadCode = () => {
-  codeUrl.value = `${config.value.captchaUrl}?t=${Date.now()}`
+  codeUrl.value = `${config.value.captchaUrl}?${Date.now()}`
 }
 
 const loginConfig = useStorage('login-config', {

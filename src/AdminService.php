@@ -1,6 +1,90 @@
 <?php
 
+namespace SmallRuralDog\Admin;
+
+use Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\Request;
+use SmallRuralDog\Admin\Models\SystemDept;
+use SmallRuralDog\Admin\Models\SystemUser;
+
 class AdminService
 {
+
+    public function bootstrap()
+    {
+        require config('admin.bootstrap', admin_path('bootstrap.php'));
+    }
+
+    /**
+     * 获取当前登录用户ID
+     * @return int
+     */
+    public function userId(): int
+    {
+        return (int)$this->userInfo()?->getKey();
+    }
+
+    /**
+     * 获取当前登录用户
+     */
+    public function userInfo(): Authenticatable|SystemUser|null
+    {
+        return $this->guard()?->user();
+    }
+
+
+    public function guard(): Guard|StatefulGuard
+    {
+        $guard = config('admin.auth.guard') ?: 'admin';
+        return Auth::guard($guard);
+    }
+
+    /**
+     * 获取部门的所有子部门ID
+     */
+    public function getDeptSonById(?int $deptId, bool $addSelf = false): array
+    {
+        $dept = SystemDept::query()->find($deptId);
+        if (!$dept) {
+            return [];
+        }
+        $list = $dept->getAllChildren();
+        $col = collect($list)->pluck('id');
+        if ($addSelf) {
+            $col->prepend($dept->getKey());
+        }
+        return $col->toArray();
+    }
+
+    /**
+     * 获取部门和下级部门的用户ID
+     */
+    public function getDeptUserIds(int $deptId, bool $addSelf = false): array
+    {
+        $deptIds = self::getDeptSonById($deptId, $addSelf);
+        $userIds = SystemUser::query()->whereIn('dept_id', $deptIds)->pluck('id');
+        return $userIds->toArray();
+    }
+
+
+    /**
+     * 检查权限
+     */
+    public function checkRoutePermission(Request $request): void
+    {
+
+        $user = $this->userInfo();
+        abort_if(!$user, 401, '请登录');
+        $route = $request->route();
+        $name = $route->getName();
+        if (!$name) {
+            $name = $request->path();
+        }
+        $hasPermission = $user->can($name);
+        abort_if(!$hasPermission, 403, '没有权限');
+    }
 
 }

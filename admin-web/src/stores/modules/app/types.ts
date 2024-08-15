@@ -34,5 +34,6 @@ export interface AmisAdmin {
   loginTitle: string
   loginDesc: string
   footer: string
+  opebCaptcha: boolean
   captchaUrl: string
 }
