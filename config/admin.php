@@ -17,11 +17,11 @@ return [
     'loginTitle' => '登录',
     'loginDesc' => '欢迎登录',
 
-    'path' => 'admin',
+    'directory' => app_path('Admin'),
     'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [
         'domain' => env('ADMIN_ROUTE_DOMAIN'),
-        'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
+        'prefix' => env('ADMIN_ROUTE_PREFIX', 'adm'),
         'middleware' => ['web', 'admin'],
     ],
     'auth' => [

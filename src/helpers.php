@@ -6,7 +6,7 @@ use Illuminate\Support\HtmlString;
 
 function admin_path(string $path = ''): string
 {
-    return ucfirst(config('admin.path')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+    return ucfirst(config('admin.directory')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
 }
 
 function admin_base_path($path = ''): string
