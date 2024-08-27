@@ -9,9 +9,9 @@ return [
     'logo' => '//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image',
     'loginBanner' => [
         [
-            'title' => '内置了常见问题的解决方案',
+            'title' => '开箱即用的后台解决方案',
             'image' => 'https://vuejs-core.cn/vue-admin-arco/static/png/login-banner-Cqtv5-d6.png',
-            'desc' => '国际化，路由配置，状态管理应有尽有'
+            'desc' => '权限，菜单，数据管理等功能',
         ],
     ],
     'loginTitle' => '登录',

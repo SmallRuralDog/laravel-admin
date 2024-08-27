@@ -32,7 +32,9 @@ class AuthController extends AdminBase
 
         if ($this->guard()->attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            return amis_success("登录成功");
+            return amis_data([
+                'access_token' => $this->guard()->user()->id,
+            ]);
         }
 
         abort(400, '用户名或密码错误');

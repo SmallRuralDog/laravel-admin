@@ -8,6 +8,11 @@ use Illuminate\Support\ServiceProvider;
 class AdminServiceProvider extends ServiceProvider
 {
 
+    protected array $commands = [
+        Consoles\Install::class,
+        Consoles\CreateUser::class,
+
+    ];
     protected array $routeMiddleware = [
         'admin.auth' => Middleware\AuthCheck::class,
         'admin.bootstrap' => Middleware\Bootstrap::class,
@@ -61,6 +66,9 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton('admin', function () {
             return new AdminService();
         });
+
+        //注册命令
+        $this->commands($this->commands);
 
         $this->loadAdminAuthConfig();
         $this->registerRouteMiddleware();
