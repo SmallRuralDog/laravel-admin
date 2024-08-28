@@ -30,6 +30,6 @@ export function getMenuList() {
   >('/userMenus')
 }
 
-export async function getPageRenderer(path: string) {
-  return await http.get<ResType<any>>(path)
+export async function getPageRenderer(path: string,params?:any) {
+  return await http.get<ResType<any>>(path,params)
 }

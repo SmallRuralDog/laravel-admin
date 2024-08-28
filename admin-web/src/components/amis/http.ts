@@ -43,7 +43,9 @@ axios.interceptors.response.use(
       if (status === 500) {
         return Promise.reject({ data: { status: 500, message: '抱歉，服务器出了点问题～' } })
       }
-      return Promise.reject(response.data)
+      console.log(response);
+      
+      return Promise.reject(response)
     }
 
     return response

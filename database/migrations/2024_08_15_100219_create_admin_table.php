@@ -48,7 +48,7 @@ return new class extends Migration {
             $table->string('username')->unique()->comment('用户名')->unique();
             $table->string('password')->comment('密码');
             $table->string('name')->default('')->comment('姓名');
-            $table->string('avatar')->default('')->comment('头像');
+            $table->string('avatar')->nullable()->comment('头像');
             $table->integer('dept_id')->default(0)->comment('部门ID')->index();
             $table->integer('create_user_id')->default(0)->comment('创建人ID')->index();
             $table->boolean('status')->default(true)->comment('状态');

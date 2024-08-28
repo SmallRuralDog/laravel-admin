@@ -82,6 +82,12 @@ class AdminService
         $name = $route->getName();
         if (!$name) {
             $name = $request->path();
+            $suffix = admin_config('route.prefix');
+            $name = str_replace($suffix, '', $name);
+            if (str_starts_with($name, '/')) {
+                $name = substr($name, 1);
+            }
+
         }
         $hasPermission = $user->can($name);
         abort_if(!$hasPermission, 403, '没有权限');

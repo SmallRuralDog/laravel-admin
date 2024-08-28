@@ -39,4 +39,14 @@ return [
             ],
         ],
     ],
+    'upload' => [
+        'disk' => 'public',
+        'uniqueName' => false,
+        'directory' => [
+            'image' => 'images',
+            'file' => 'files',
+        ],
+        'mimes' => 'jpeg,bmp,png,gif,jpg',
+        'file_mimes' => 'doc,docx,xls,xlsx,ppt,pptx,pdf,zip,rar,7z',
+    ],
 ];

@@ -23,11 +23,11 @@ const route = useRoute()
 watch(
   () => route.path,
   async (path: string) => {
-    await getPageJson(path)
+    await getPageJson(path,route.query)
   }
 )
 onMounted(async () => {
-  await getPageJson(route.path)
+  await getPageJson(route.path,route.query)
 })
 
 const status = computed(() => {

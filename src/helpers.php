@@ -4,6 +4,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\HtmlString;
 
+function admin_config(string $key)
+{
+    return config('admin.' . $key);
+}
+
 function admin_path(string $path = ''): string
 {
     return ucfirst(config('admin.directory')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
@@ -29,10 +34,59 @@ function admin_url($path = '', $parameters = [], $secure = null)
     return url(admin_base_path($path), $parameters, $secure);
 }
 
-function amis_data(array|string|int|float|bool $data): JsonResponse
+//给现有的URL拼接参数
+function get_url_with_parameter($url, $parameters = [])
+{
+    //判断是否是url
+    if (!filter_var($url, FILTER_VALIDATE_URL)) {
+        return $url;
+    }
+
+    $url = parse_url($url);
+    $query = [];
+    if (isset($url['query'])) {
+        parse_str($url['query'], $query);
+    }
+    $query = array_merge($query, $parameters);
+    $url['query'] = http_build_query($query);
+
+    $host = $url['host'] ?? '';
+    $port = $url['port'] ?? '';
+    $scheme = $url['scheme'] ?? '';
+    $path = $url['path'] ?? '';
+    $query = $url['query'] ?? '';
+
+    return $scheme . '://' . $host . ($port ? ':' . $port : '') . $path . '?' . $query;
+}
+
+function admin_file_url($path)
+{
+    if (!$path) {
+        return $path;
+    }
+    if (Str::startsWith($path, ["http://", "https://"])) {
+        return $path;
+    }
+    return Storage::disk(config('admin.upload.disk'))->url($path);
+}
+
+function admin_file_restore_path($url)
+{
+    if (!$url) {
+        return $url;
+    }
+    if (Str::startsWith($url, ["http://", "https://"])) {
+        $base_url = Storage::disk(config('admin.upload.disk'))->url('');
+        $url = str_replace($base_url, '', $url);
+    }
+    return $url;
+}
+
+function amis_data($data, $status = 0): JsonResponse
 {
     return response()->json([
-        'status' => 0,
+        'status' => $status,
+        "msg" => "",
         'data' => $data
     ]);
 }
@@ -41,16 +95,24 @@ function amis_success(string $message = '操作成功'): JsonResponse
 {
     return response()->json([
         'status' => 0,
-        'message' => $message,
+        'msg' => $message,
+        "data" => []
     ]);
 }
 
 function amis_error(string|array $error, int $status = 400): JsonResponse
 {
-    return response()->json([
+    $res = [
         'status' => $status,
-        'error' => $error
-    ]);
+        "data" => []
+    ];
+    if (is_array($error)) {
+        $res['errors'] = $error;
+    } else {
+        $res['msg'] = $error;
+    }
+
+    return response()->json($res);
 }
 
 

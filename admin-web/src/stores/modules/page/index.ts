@@ -17,11 +17,12 @@ const usePagesStore = defineStore('pages', () => {
     showHeader: true
   })
 
-  const getPageJson = async (path: string) => {
+  const getPageJson = async (path: string, params?: any) => {
     try {
       Nprogress.start()
       thisPage.value.loading = true
-      const res = await getPageRenderer(path)
+      
+      const res = await getPageRenderer(path, params)
       if (res.action) {
         if (res.action == 'jump' && res.url) {
           window.location.href = res.url

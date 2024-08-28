@@ -51,6 +51,7 @@ class AdminTablesSeeder extends Seeder
                         'path' => 'system/user',
                         'order' => 96,
                         'resource' => true,
+                        'resource_names' => 'admin.system.user',
                         'children' => [
                             [
                                 'type' => 'menu',
@@ -67,6 +68,7 @@ class AdminTablesSeeder extends Seeder
                         'path' => 'system/role',
                         'order' => 97,
                         'resource' => true,
+                        'resource_names' => 'admin.system.role'
 
                     ],
                     [
@@ -75,6 +77,7 @@ class AdminTablesSeeder extends Seeder
                         'path' => 'system/dept',
                         'order' => 99,
                         'resource' => true,
+                        'resource_names' => 'admin.system.dept'
                     ],
                     [
                         'type' => 'menu',
@@ -82,6 +85,7 @@ class AdminTablesSeeder extends Seeder
                         'path' => 'system/menu',
                         'order' => 98,
                         'resource' => true,
+                        'resource_names' => 'admin.system.menu'
                     ],
                 ]
             ]
@@ -117,7 +121,7 @@ class AdminTablesSeeder extends Seeder
                                 'name' => $permissionName,
                                 'order' => 1,
                                 'parent_id' => $childItem->getKey(),
-                                'permission' => $child['path'] . $r,
+                                'permission' => $child['resource_names'] . $r,
                             ]);
                         }
                     }

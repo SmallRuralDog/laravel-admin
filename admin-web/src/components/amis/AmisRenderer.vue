@@ -22,7 +22,7 @@ const build = () => {
     props.amisJson,
     {},
     {
-      fetcher: ({
+      /*fetcher: ({
         url, // 接口地址
         method, // 请求方法 get、post、put、delete
         data, // 请求数据
@@ -57,7 +57,7 @@ const build = () => {
           config.headers['Content-Type'] = 'application/json'
         }
         return (amisHttp as any)[method](url, data, config)
-      },
+      },*/
       jumpTo: (to: string) => {
         if (to == 'back()') {
           router.back()
