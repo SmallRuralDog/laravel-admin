@@ -147,6 +147,7 @@
     "tabBar": true,
     "usePageStore": true,
     "user": true,
-    "amisHttp": true
+    "amisHttp": true,
+    "Modal": true
   }
 }

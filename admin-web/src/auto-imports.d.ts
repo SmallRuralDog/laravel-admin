@@ -7,6 +7,7 @@ export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const Message: typeof import('@arco-design/web-vue')['Message']
+  const Modal: typeof import('@arco-design/web-vue')['Modal']
   const Notification: typeof import('@arco-design/web-vue')['Notification']
   const PAGES: typeof import('./router/index')['PAGES']
   const PageMenu: typeof import('./components/menu/PageMenu.vue')['default']

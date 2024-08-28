@@ -37,7 +37,7 @@ class AuthController extends AdminBase
         ]);
 
         $credentials = $request->only(['username', 'password']);
-        $remember = $request->boolean('remember', false);
+        $remember = $request->boolean('rememberPassword', false);
 
         if ($this->guard()->attempt($credentials, $remember)) {
             $request->session()->regenerate();

@@ -26,7 +26,7 @@ export interface MenuItem {
   parent_id: number
   show: boolean
   is_ext: boolean
-  ext_open_mode: number
+  ext_open_mode: "self" | "blank"
   active_menu: string
   params: {
     [key: string]: any

@@ -7,6 +7,7 @@ use SmallRuralDog\Admin\Components\Form;
 use SmallRuralDog\Admin\Components\Grid;
 use SmallRuralDog\Admin\Controllers\AdminController;
 use SmallRuralDog\Admin\Models\SystemMenu;
+use SmallRuralDog\Admin\Renderer\Form\Group;
 use SmallRuralDog\Admin\Renderer\Form\InputNumber;
 use SmallRuralDog\Admin\Renderer\Form\InputSwitch;
 use SmallRuralDog\Admin\Renderer\Form\Radios;
@@ -87,14 +88,24 @@ class MenuController extends AdminController
                     ->placeholder("例如：fa-solid fa-house"),
                 $form->item('order', '排序')
                     ->value(1)
+                    ->vRequired()
                     ->vInteger()
+                    ->vBetween(1, 99999)
                     ->useFormItem(InputNumber::make()),
 
-                $form->item('is_ext', '是否外链')->value(false)->useFormItem(InputSwitch::make()),
-                $form->item('show', '是否显示')->value(true)->useFormItem(InputSwitch::make()),
-
-                $form->item('active_menu', '高亮菜单')->useFormItem(MenuComponent::make()->routeParentSelect())->visibleOn('!show'),
-
+                Group::make()->body([
+                    $form->item('is_ext', '是否外链')->value(false)->useFormItem(InputSwitch::make())->columnRatio(2),
+                    $form->item('ext_open_mode', '外链打开方式')
+                        ->value('blank')
+                        ->useFormItem(Radios::make()->options([
+                            'self' => '当前窗口',
+                            'blank' => '新窗口',
+                        ]))->visibleOn('is_ext'),
+                ]),
+                Group::make()->body([
+                    $form->item('show', '是否显示')->value(true)->useFormItem(InputSwitch::make())->columnRatio(2),
+                    $form->item('active_menu', '高亮菜单')->useFormItem(MenuComponent::make()->routeParentSelect())->visibleOn('!show'),
+                ]),
                 $form->item('status', '状态')->value(true)->useFormItem(InputSwitch::make()),
 
 

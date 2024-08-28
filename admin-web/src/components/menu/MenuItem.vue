@@ -36,7 +36,7 @@ const route = useRoute()
 const itemClick = (item: MenuItem) => {
   if (item.is_ext) {
     const a = document.createElement('a')
-    if (item.ext_open_mode == 2) {
+    if (item.ext_open_mode == 'blank') {
       a.target = '_blank'
     }
     a.href = item.path

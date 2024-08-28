@@ -21,7 +21,7 @@ return [
     'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [
         'domain' => env('ADMIN_ROUTE_DOMAIN'),
-        'prefix' => env('ADMIN_ROUTE_PREFIX', 'adm'),
+        'prefix' => env('ADMIN_ROUTE_PREFIX', 'laravel-admin'),
         'middleware' => ['web', 'admin'],
     ],
     'auth' => [

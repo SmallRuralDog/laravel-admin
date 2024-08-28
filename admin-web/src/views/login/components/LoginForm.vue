@@ -59,18 +59,19 @@
           </a-tooltip>
         </a-space>
       </a-form-item>
-
-      <a-space :size="16" direction="vertical">
-        <div class="login-form-password-actions">
-          <a-checkbox
-            checked="rememberPassword"
-            :model-value="loginConfig.rememberPassword"
-            @change="setRememberPassword as any"
-            >记住密码</a-checkbox
-          >
-        </div>
-        <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
-      </a-space>
+      <a-form-item field="rememberPassword">
+        <a-space :size="16" direction="vertical">
+          <div class="login-form-password-actions">
+            <a-checkbox
+              checked="rememberPassword"
+              :model-value="loginConfig.rememberPassword"
+              @change="setRememberPassword as any"
+              >记住密码</a-checkbox
+            >
+          </div>
+          <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
+        </a-space>
+      </a-form-item>
     </a-form>
   </div>
 </template>
@@ -100,6 +101,7 @@ const loginConfig = useStorage('login-config', {
 const userInfo = reactive({
   username: loginConfig.value.username,
   password: loginConfig.value.password,
+  rememberPassword: loginConfig.value.rememberPassword,
   verification_code: ''
 })
 
@@ -115,7 +117,7 @@ const handleSubmit = async ({
   if (!errors) {
     setLoading(true)
     try {
-      await userStore.login(values as LoginData)      
+      await userStore.login(values as LoginData)
 
       Message.success('登录成功')
 
@@ -135,6 +137,7 @@ const handleSubmit = async ({
 }
 const setRememberPassword = (value: boolean) => {
   loginConfig.value.rememberPassword = value
+  userInfo.rememberPassword = value
 }
 </script>
 

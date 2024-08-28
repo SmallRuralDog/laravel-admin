@@ -237,8 +237,10 @@ trait HasPermissions
 
         $list = $list->map(function (SystemMenu $menu) {
 
+            $path = $menu->is_ext ? $menu->path : Str::start($menu->path ?? "", '/');
+
             $res['id'] = (string)$menu->id;
-            $res['path'] = Str::start($menu->path ?? "", '/');
+            $res['path'] = $path;
             $res['name'] = $menu->name;
             $res['icon'] = $menu->icon;
             $res['parent_id'] = $menu->parent_id;

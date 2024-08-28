@@ -4,6 +4,7 @@ import type { ResType } from './http'
 export interface LoginData {
   username: string
   password: string
+  rememberPassword: boolean
 }
 
 export interface LoginRes {

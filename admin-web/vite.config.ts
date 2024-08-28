@@ -29,7 +29,7 @@ export default defineConfig({
         'pinia',
         'vue-router',
         {
-          '@arco-design/web-vue': ['Message', 'Notification'],
+          '@arco-design/web-vue': ['Message', 'Notification','Modal'],
           '@vueuse/core': [
             'useDebounce',
             'useDebounceFn',

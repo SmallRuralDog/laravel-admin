@@ -30,8 +30,8 @@ return new class extends Migration {
             $table->boolean('show')->default(true)->comment('是否显示');
             $table->boolean('status')->default(true)->comment('状态');
             $table->boolean('is_ext')->default(false)->comment('是否外链');
-            $table->string('ext_open_mode', 32)->default('')->comment('外链打开方式');
-            $table->string('active_menu')->default('')->comment('激活菜单');
+            $table->string('ext_open_mode', 32)->nullable()->comment('外链打开方式');
+            $table->string('active_menu')->nullable()->comment('激活菜单');
             $table->timestamps();
         });
 
@@ -52,6 +52,7 @@ return new class extends Migration {
             $table->integer('dept_id')->default(0)->comment('部门ID')->index();
             $table->integer('create_user_id')->default(0)->comment('创建人ID')->index();
             $table->boolean('status')->default(true)->comment('状态');
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
 
