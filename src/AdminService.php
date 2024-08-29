@@ -80,6 +80,7 @@ class AdminService
         abort_if(!$user, 401, '请登录');
         $route = $request->route();
         $name = $route->getName();
+
         if (!$name) {
             $name = $request->path();
             $suffix = admin_config('route.prefix');

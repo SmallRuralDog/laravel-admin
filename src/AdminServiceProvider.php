@@ -40,7 +40,7 @@ class AdminServiceProvider extends ServiceProvider
         //发布资源文件
         $this->publishes([
             __DIR__ . '/../admin-web/dist/amis' => public_path('admin/amis'),
-            //__DIR__ . '/../admin-web/dist/assets' => public_path('admin/assets'),
+            __DIR__ . '/../admin-web/dist/assets' => public_path('admin/assets'),
         ], 'admin-assets');
 
         //加载迁移文件

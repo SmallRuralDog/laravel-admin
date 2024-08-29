@@ -20,11 +20,12 @@ class UserController extends AdminController
     {
         return Grid::make(SystemUser::query()->with(['createUser']), function (Grid $grid) {
             $admin = Admin::userInfo();
-            if (!$admin->isAdministrator()) {
-                [$check, $deptIds] = $admin->getUserDeptSonIds();
-                if ($check) {
-                    $grid->builder()->where('dept_id', $deptIds);
-                }
+            [$check, $deptIds] = $admin->getUserDeptSonIds();
+            if ($check) {
+
+                abort_if(count($deptIds) == 0, 403, '无权限');
+
+                $grid->builder()->where('dept_id', $deptIds);
             }
 
 
@@ -96,7 +97,6 @@ class UserController extends AdminController
                     return $body;
                 }),
             ]);
-
 
 
             $form->saving(function (Form $form) {

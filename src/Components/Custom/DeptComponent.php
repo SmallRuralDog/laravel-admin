@@ -47,13 +47,14 @@ class DeptComponent extends AutoRoute
     {
         $admin = Admin::userInfo();
 
-        $orm = SystemDept::query();
-        $list = match ($admin->getUserDataPermissionType()) {
-            DataPermissionsType::SELF => [],
-            DataPermissionsType::DEPT => $orm->where('id', $admin->dept?->getKey())->get()->sortByDesc('order')->toArray(),
-            DataPermissionsType::DEPT_AND_SUB => $orm->whereIn('id', $admin->getUserDeptSonIds())->get()->sortByDesc('order')->toArray(),
-            default => $orm->get()->sortByDesc('order')->toArray(),
-        };
+        [$check,$ids] = $admin->getUserDeptSonIds();
+        if ($check) {
+            $orm = SystemDept::query()->whereIn('id', $ids);
+        } else {
+            $orm = SystemDept::query();
+        }
+
+        $list =  $orm->get()->sortByDesc('order')->toArray();
 
         return arr2tree($list);
     }

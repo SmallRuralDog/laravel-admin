@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Models;
 
+use Admin;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Str;
@@ -87,7 +88,7 @@ trait HasPermissions
                 return !empty($item);
             })
             ->map(function ($item) {
-                return admin_url($item ?? "");
+                return $item;
             })->unique()->toArray();
         return array_merge($permission, $menuPaths);
     }
@@ -104,10 +105,10 @@ trait HasPermissions
 
     /**
      * 权限检查
-     * @param string $ability
+     * @param string|array $ability
      * @return bool
      */
-    public function can(string $ability): bool
+    public function can(string|array $ability): bool
     {
         if (empty($ability)) {
             return true;
@@ -116,6 +117,11 @@ trait HasPermissions
             return true;
         }
         $permission = $this->getAllPermission();
+
+        if(is_array($ability)){
+            return collect($permission)->intersect($ability)->isNotEmpty();
+        }
+
         return collect($permission)->contains($ability);
     }
 
