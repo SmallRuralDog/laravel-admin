@@ -8,11 +8,9 @@ use Exception;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\JsonResponse;
-use Ramsey\Collection\Collection;
 use Schema;
 use SmallRuralDog\Admin\Components\Form\Item;
 use Str;
-use Validator;
 
 
 trait FormResource
@@ -57,46 +55,7 @@ trait FormResource
         return $this;
     }
 
-    /**
-     * 验证数据
-     */
-    private function validatorData($data): ?JsonResponse
-    {
-        $rules = [];
-        /* @var Item $item */
-        foreach ($this->items as $item) {
-            /**@var Collection $itemRule */
-            $itemRule = $item->getRule()->toArray();
-            $rules[$item->getName()] = $itemRule;
-        }
 
-        //合并自定义规则
-        $rules = Arr::collapse([$rules, $this->addRules]);
-
-        //如果是快捷编辑，只提取编辑字段的规则
-        if ($this->isQuickEdit) {
-            $rules = collect($rules)->filter(function ($item, $key) use ($data) {
-                return in_array($key, collect($data)->keys()->toArray());
-            })->toArray();
-        }
-
-        $validator = Validator::make($data, $rules);
-        if ($validator->fails()) {
-            $lastMessage = collect($validator->errors()->messages())
-                ->map(function ($item) {
-                    return Arr::first($item);
-                })
-                ->toArray();
-            return amis_error($lastMessage,422);
-        }
-
-        $this->callValidatorEnd($data);
-
-
-        return null;
-
-
-    }
 
     private function input($key, $value = null)
     {
@@ -109,9 +68,9 @@ trait FormResource
     /**
      * 预处理数据
      * @param array $data
-     * @return void
+     * @return JsonResponse|void
      */
-    protected function prepare(array $data = []): void
+    protected function prepare(array $data = [])
     {
 
         //处理要过滤的字段

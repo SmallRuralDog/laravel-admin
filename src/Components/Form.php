@@ -9,13 +9,14 @@ use Illuminate\Http\Request;
 use SmallRuralDog\Admin\Components\Form\Trait\FormHooks;
 use SmallRuralDog\Admin\Components\Form\Trait\FormMain;
 use SmallRuralDog\Admin\Components\Form\Trait\FormResource;
+use SmallRuralDog\Admin\Components\Form\Trait\FormValidator;
 use SmallRuralDog\Admin\Renderer\Form\AmisForm;
 use SmallRuralDog\Admin\Renderer\Page;
 use stdClass;
 
 class Form extends stdClass
 {
-    use ModelBase, FormMain, FormResource, FormHooks;
+    use ModelBase, FormMain, FormResource, FormValidator, FormHooks;
 
     public const REMOVE_FLAG_NAME = '_remove_flag';
 

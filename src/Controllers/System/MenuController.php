@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Controllers\System;
 
+use Arr;
 use SmallRuralDog\Admin\Components\Custom\MenuComponent;
 use SmallRuralDog\Admin\Components\Form;
 use SmallRuralDog\Admin\Components\Grid;
@@ -12,6 +13,7 @@ use SmallRuralDog\Admin\Renderer\Form\InputNumber;
 use SmallRuralDog\Admin\Renderer\Form\InputSwitch;
 use SmallRuralDog\Admin\Renderer\Form\Radios;
 use SmallRuralDog\Admin\Renderer\Tpl;
+use Validator;
 
 class MenuController extends AdminController
 {
@@ -110,6 +112,16 @@ class MenuController extends AdminController
 
 
             ]);
+
+            $form->useValidatorEnd(function (Form $form, array $data) {
+                if (data_get($data, 'is_ext')) {
+                    $validator = Validator::make($data, [
+                        'path' => 'required|url',
+                    ]);
+                   return $form->validator($validator);
+                }
+                return null;
+            });
 
             $form->saved(function (Form $form) {
                 $auto_son_permission = request()->input('auto_son_permission', []);

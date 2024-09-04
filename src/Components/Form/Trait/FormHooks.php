@@ -4,6 +4,7 @@ namespace SmallRuralDog\Admin\Components\Form\Trait;
 
 use Arr;
 use Closure;
+use Illuminate\Http\JsonResponse;
 use SmallRuralDog\Admin\Components\Form;
 
 trait FormHooks
@@ -16,15 +17,19 @@ trait FormHooks
         return $this;
     }
 
-    protected function callHooks($name, $parameters = []): void
+    protected function callHooks($name, $parameters = [])
     {
         $hooks = Arr::get($this->hooks, $name, []);
         foreach ($hooks as $func) {
             if (!$func instanceof Closure) {
                 continue;
             }
-            $func($this, $parameters);
+            $res = $func($this, $parameters);
+            if ($res instanceof JsonResponse) {
+                return $res;
+            }
         }
+        return null;
     }
 
     /**
@@ -108,9 +113,9 @@ trait FormHooks
         return $this->registerHook('useValidatorEnd', $callback);
     }
 
-    protected function callValidatorEnd($data): void
+    protected function callValidatorEnd($data)
     {
-        $this->callHooks('useValidatorEnd', $data);
+        return $this->callHooks('useValidatorEnd', $data);
     }
 
 
@@ -145,11 +150,10 @@ trait FormHooks
 
     /**
      * 触发保存时钩子
-     * @return void
      */
-    protected function callSaving(): void
+    protected function callSaving()
     {
-        $this->callHooks('saving');
+        return $this->callHooks('saving');
     }
 
     /**
