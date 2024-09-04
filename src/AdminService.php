@@ -3,6 +3,7 @@
 namespace SmallRuralDog\Admin;
 
 use Auth;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -30,13 +31,13 @@ class AdminService
     /**
      * 获取当前登录用户
      */
-    public function userInfo(): Authenticatable|SystemUser|null
+    public function userInfo(): SystemUser|null
     {
         return $this->guard()?->user();
     }
 
 
-    public function guard(): Guard|StatefulGuard
+    public function guard(): Guard|StatefulGuard|SessionGuard
     {
         $guard = config('admin.auth.guard') ?: 'admin';
         return Auth::guard($guard);

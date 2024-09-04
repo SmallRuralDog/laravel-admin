@@ -6,9 +6,11 @@ use Admin;
 use Arr;
 use Exception;
 use Hash;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use ReflectionClass;
+use Session;
 use SmallRuralDog\Admin\Models\SystemUser;
 use SmallRuralDog\Admin\Renderer\Button;
 use SmallRuralDog\Admin\Renderer\Form\AmisForm;
@@ -23,10 +25,11 @@ class AuthController extends AdminBase
 
     public array $noNeedPermission = ['userSetting'];
 
-    private function guard()
+    private function guard(): SessionGuard
     {
         return Admin::guard();
     }
+
 
     public function login(Request $request)
     {
@@ -47,14 +50,9 @@ class AuthController extends AdminBase
         }
 
         abort(400, '用户名或密码错误');
-
-
     }
 
-    public function captcha(Request $request)
-    {
-
-    }
+    public function captcha(Request $request) {}
 
     public function userSetting(Request $request)
     {
@@ -95,14 +93,13 @@ class AuthController extends AdminBase
             } catch (Exception $e) {
                 return amis_error($e->getMessage());
             }
-
         }
 
 
         $form = AmisForm::make()
             ->title('个人设置')
             ->wrapWithPanel(false)
-            ->data(Admin::userInfo()->only(['username', 'name']))
+            ->data(Admin::userInfo()?->only(['username', 'name']))
             ->api(route('admin.userSetting'));
         $form->body([
             InputText::make()->name('username')->label('用户名')->readOnly(true)->disabled(true),
