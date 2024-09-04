@@ -9,9 +9,9 @@ use SmallRuralDog\Admin\Traits\HasDateTimeFormatter;
 
 
 /**
- * @property int $id
- * @property string $type
- * @property int $parent_id
+ * @property int $id ID
+ * @property string $type 类型
+ * @property int $parent_id 父级 ID
  * @property string $path
  * @property string $name
  * @property string $permission

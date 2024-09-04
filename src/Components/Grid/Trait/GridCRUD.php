@@ -8,16 +8,16 @@ use SmallRuralDog\Admin\Renderer\CRUD;
 
 trait GridCRUD
 {
-    private CRUD $crud;//CRUD组件
-    private string $crudName = "crud";//CRUD组件的name
-    protected array $columns = [];//CRUD组件的列
-    protected array $headers = [];//CRUD组件的头部
-    protected array $footers = [];//CRUD组件的底部
+    private CRUD $crud; //CRUD 组件
+    private string $crudName = "crud"; //CRUD 组件的 name
+    protected array $columns = []; //CRUD 组件的列
+    protected array $headers = []; //CRUD 组件的头部
+    protected array $footers = []; //CRUD 组件的底部
 
-    private bool $loadDataOnce = false;//是否只加载一次数据
+    private bool $loadDataOnce = false; //是否只加载一次数据
 
 
-    protected bool $hideFooter = false;//是否隐藏底部
+    protected bool $hideFooter = false; //是否隐藏底部
 
 
     protected function initCRUD(): void
@@ -28,7 +28,7 @@ trait GridCRUD
     }
 
     /**
-     * 获得AmisCRUD组件
+     * 获得 AmisCRUD 组件
      * @return CRUD
      */
     public function useCRUD(): CRUD
@@ -37,7 +37,7 @@ trait GridCRUD
     }
 
     /**
-     * 获取CRUD组件的name
+     * 获取 CRUD 组件的 name
      * @return string
      */
     public function getCrudName(): string
@@ -46,7 +46,7 @@ trait GridCRUD
     }
 
     /**
-     * 设置CRUD组件的name
+     * 设置 CRUD 组件的 name
      * @param string $crudName
      */
     public function setCrudName(string $crudName): void
@@ -73,7 +73,7 @@ trait GridCRUD
     }
 
     /**
-     * 获取CRUD组件的列
+     * 获取 CRUD 组件的列
      * @return array
      */
     public function getColumns(): array
@@ -138,7 +138,7 @@ trait GridCRUD
     }
 
     /**
-     * 隐藏CRUD底部
+     * 隐藏 CRUD 底部
      */
     public function hideFooter(bool $hideFooter = true): self
     {
@@ -151,7 +151,7 @@ trait GridCRUD
         $this->crud->name($this->crudName)->className('admin-crud');
 
 
-        //数据来源API
+        //数据来源 API
         $api = $this->getIndexUrl(['_action' => 'getData']);
         $this->crud->api($api);
         //快速编辑后用来批量保存的 API
@@ -213,5 +213,4 @@ trait GridCRUD
 
         return $this->crud;
     }
-
 }

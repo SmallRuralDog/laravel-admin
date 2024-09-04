@@ -2,6 +2,8 @@
 
 namespace SmallRuralDog\Admin\Controllers\System;
 
+use Admin;
+use App\Models\User;
 use Arr;
 use SmallRuralDog\Admin\Components\Custom\MenuComponent;
 use SmallRuralDog\Admin\Components\Form;
@@ -21,8 +23,8 @@ class MenuController extends AdminController
     protected function grid()
     {
         return Grid::make(SystemMenu::query(), function (Grid $grid) {
-            $grid->builder()->orderByDesc('order');
 
+            $grid->builder()->orderByDesc('order');
             $grid
                 ->hideFooter()
                 ->loadDataOnce()
@@ -45,7 +47,6 @@ class MenuController extends AdminController
             $grid->column('status', '启用')->status();
             $grid->column('updated_at', '更新时间');
         });
-
     }
 
     protected function form()
@@ -110,7 +111,6 @@ class MenuController extends AdminController
                 ]),
                 $form->item('status', '状态')->value(true)->useFormItem(InputSwitch::make()),
 
-
             ]);
 
             $form->useValidatorEnd(function (Form $form, array $data) {
@@ -118,7 +118,7 @@ class MenuController extends AdminController
                     $validator = Validator::make($data, [
                         'path' => 'required|url',
                     ]);
-                   return $form->validator($validator);
+                    return $form->validator($validator);
                 }
                 return null;
             });
@@ -129,7 +129,6 @@ class MenuController extends AdminController
             });
 
             $form->ignored('auto_son_permission');
-
         });
     }
 
@@ -150,9 +149,6 @@ class MenuController extends AdminController
                     'name' => $permissionName,
                     'order' => $count - $index,
                 ]);
-
         }
-
     }
-
 }
