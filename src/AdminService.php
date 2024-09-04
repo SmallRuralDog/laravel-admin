@@ -19,7 +19,7 @@ class AdminService
     }
 
     /**
-     * 获取当前登录用户ID
+     * 获取当前登录用户 ID
      * @return int
      */
     public function userId(): int
@@ -43,7 +43,7 @@ class AdminService
     }
 
     /**
-     * 获取部门的所有子部门ID
+     * 获取部门的所有子部门 ID
      */
     public function getDeptSonById(?int $deptId, bool $addSelf = false): array
     {
@@ -60,7 +60,7 @@ class AdminService
     }
 
     /**
-     * 获取部门和下级部门的用户ID
+     * 获取部门和下级部门的用户 ID
      */
     public function getDeptUserIds(int $deptId, bool $addSelf = false): array
     {
@@ -88,10 +88,8 @@ class AdminService
             if (str_starts_with($name, '/')) {
                 $name = substr($name, 1);
             }
-
         }
         $hasPermission = $user->can($name);
         abort_if(!$hasPermission, 403, '没有权限');
     }
-
 }

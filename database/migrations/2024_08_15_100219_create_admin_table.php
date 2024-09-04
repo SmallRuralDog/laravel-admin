@@ -10,6 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
+
+        // 部门表
         Schema::create('system_dept', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('部门名称');
@@ -18,6 +20,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        // 菜单表
         Schema::create('system_menu', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['dir', 'menu', 'permission'])->default('dir')->comment('类型');
@@ -35,6 +38,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        // 角色表
         Schema::create('system_role',function (Blueprint $table){
             $table->id();
             $table->string('name')->comment('角色名称');
@@ -43,6 +47,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        // 用户表
         Schema::create('system_user', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique()->comment('用户名')->unique();
@@ -56,24 +61,28 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        // 角色部门关联表
         Schema::create('system_role_dept', function (Blueprint $table) {
             $table->integer('role_id')->comment('角色ID')->index();
             $table->integer('dept_id')->comment('部门ID')->index();
             $table->primary(['role_id', 'dept_id']);
         });
 
+        // 角色菜单关联表
         Schema::create('system_role_menu', function (Blueprint $table) {
             $table->integer('role_id')->comment('角色ID')->index();
             $table->integer('menu_id')->comment('菜单ID')->index();
             $table->primary(['role_id', 'menu_id']);
         });
 
+        // 角色用户关联表
         Schema::create('system_role_user', function (Blueprint $table) {
             $table->integer('role_id')->comment('角色ID')->index();
             $table->integer('user_id')->comment('用户ID')->index();
             $table->primary(['role_id', 'user_id']);
         });
 
+        // 系统设置表
         Schema::create('system_setting', function (Blueprint $table) {
             $table->string('slug')->primary();
             $table->json('value');
