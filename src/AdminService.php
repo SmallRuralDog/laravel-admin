@@ -2,14 +2,18 @@
 
 namespace SmallRuralDog\Admin;
 
+use Arr;
 use Auth;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator as V;
 use SmallRuralDog\Admin\Models\SystemDept;
 use SmallRuralDog\Admin\Models\SystemUser;
+use Validator;
 
 class AdminService
 {
@@ -92,5 +96,20 @@ class AdminService
         }
         $hasPermission = $user->can($name);
         abort_if(!$hasPermission, 403, '没有权限');
+    }
+
+    public function validator($data, $rules, $message = []): ?JsonResponse
+    {
+
+        $validator = Validator::make($data, $rules, $message);
+        if ($validator->fails()) {
+            $lastMessage = collect($validator->errors()->messages())
+                ->map(function ($item) {
+                    return Arr::first($item);
+                })
+                ->toArray();
+            return amis_error($lastMessage, 422);
+        }
+        return null;
     }
 }

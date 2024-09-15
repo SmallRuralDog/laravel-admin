@@ -4,6 +4,8 @@ namespace SmallRuralDog\Admin;
 
 use Arr;
 use Illuminate\Support\ServiceProvider;
+use SmallRuralDog\Admin\Extensions\SettingEloquentStorage;
+use SmallRuralDog\Admin\Extensions\SettingStorage;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -72,6 +74,8 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->loadAdminAuthConfig();
         $this->registerRouteMiddleware();
+
+        $this->app->bind(SettingStorage::class, SettingEloquentStorage::class);
 
     }
 

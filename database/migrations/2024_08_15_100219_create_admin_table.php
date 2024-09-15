@@ -86,7 +86,6 @@ return new class extends Migration {
         Schema::create('system_setting', function (Blueprint $table) {
             $table->string('slug')->primary();
             $table->json('value');
-            $table->timestamps();
         });
 
     }

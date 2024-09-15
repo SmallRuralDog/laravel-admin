@@ -102,8 +102,8 @@ onUnmounted(() => {
 
 <style lang="less">
 .amis-main {
-  position: relative;
-  height: calc(100vh - 147px);
+  //position: relative;
+  //height: calc(100vh - 147px);
 }
 .amis-scope {
   background-color: transparent;

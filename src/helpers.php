@@ -3,6 +3,7 @@
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\HtmlString;
+use SmallRuralDog\Admin\Extensions\SettingStorage;
 
 function admin_config(string $key)
 {
@@ -187,6 +188,21 @@ function find_tree_children(array $list, $id, string $son = 'children'): array
         }
     }
     return [];
+}
+
+if (!function_exists('settings')) {
+
+    function settings($key = null, $default = null)
+    {
+        $setting = app()->make(SettingStorage::class);
+        if (is_null($key)) {
+            return $setting;
+        }
+        if (is_array($key)) {
+            return $setting->set($key);
+        }
+        return $setting->get($key, value($default));
+    }
 }
 
 /**

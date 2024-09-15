@@ -167,7 +167,8 @@ onMounted(() => {
   .layout-content {
     min-width: @layout-max-width;
     min-height: 100vh;
-    overflow-y: hidden;
+    //overflow-y: hidden;
+    overflow-x: unset !important;
     background-color: var(--color-fill-2);
     transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1);
 

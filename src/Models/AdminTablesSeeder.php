@@ -87,6 +87,12 @@ class AdminTablesSeeder extends Seeder
                         'resource' => true,
                         'resource_names' => 'admin.system.menu'
                     ],
+                    [
+                        'type' => 'menu',
+                        'name' => '配置管理',
+                        'path' => 'system/setting',
+                        'order' => 95,
+                    ],
                 ]
             ]
         ];
