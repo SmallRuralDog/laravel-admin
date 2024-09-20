@@ -24,7 +24,7 @@ class IndexController extends AdminBase
     {
         $theme = $request->cookie('arco-theme');
 
-        $data['amisVersion'] = $amisVersion = '@6.7.0';
+        $data['amisVersion'] = $amisVersion = '@6.8.0';
         $data['darkCss'] = '';
         if ($theme == 'dark') {
             $data['darkCss'] = ' <link rel="stylesheet" href="/admin/amis/@' . $amisVersion . '/dark.css"/>';
