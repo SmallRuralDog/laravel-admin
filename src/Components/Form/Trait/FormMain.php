@@ -50,7 +50,7 @@ trait FormMain
     }
 
     /**
-     * 获取AmisForm对象
+     * 获取 AmisForm 对象
      */
     public function useForm(): AmisForm
     {

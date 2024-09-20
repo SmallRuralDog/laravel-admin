@@ -95,7 +95,7 @@ trait ModelBase
     public function getUpdateUrl($key, $parameters = []): string
     {
         $routeName = $this->getRouteName();
-        $route = route($this->getRouteName() . '.index') . '/' . '${' . $key . '}';
+        $route = route($routeName . '.index') . '/' . $key;
 
         return 'put:' . get_url_with_parameter($route, $parameters);
     }

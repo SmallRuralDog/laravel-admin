@@ -21,7 +21,7 @@ class Form extends stdClass
     public const REMOVE_FLAG_NAME = '_remove_flag';
 
     /**
-     * 页面Page对象
+     * 页面 Page 对象
      * @var Page
      */
     protected Page $page;
@@ -89,7 +89,7 @@ class Form extends stdClass
     }
 
     /**
-     * 获取AmisPage实例
+     * 获取 AmisPage 实例
      */
     public function usePage(): Page
     {

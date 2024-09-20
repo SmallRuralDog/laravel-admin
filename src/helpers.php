@@ -57,7 +57,11 @@ function get_url_with_parameter($url, $parameters = [])
     $path = $url['path'] ?? '';
     $query = $url['query'] ?? '';
 
-    return $scheme . '://' . $host . ($port ? ':' . $port : '') . $path . '?' . $query;
+    if ($query) {
+        $query = '?' . $query;
+    }
+
+    return $scheme . '://' . $host . ($port ? ':' . $port : '') . $path . $query;
 }
 
 function admin_file_url($path)
