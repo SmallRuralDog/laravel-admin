@@ -102,7 +102,7 @@ onUnmounted(() => {
 
 <style lang="less">
 .amis-main {
-  //position: relative;
+  position: relative;
   //height: calc(100vh - 147px);
 }
 .amis-scope {
