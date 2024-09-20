@@ -59,7 +59,6 @@
           </a-tooltip>
         </a-space>
       </a-form-item>
-      <a-form-item field="rememberPassword">
         <a-space :size="16" direction="vertical">
           <div class="login-form-password-actions">
             <a-checkbox
@@ -71,7 +70,7 @@
           </div>
           <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
         </a-space>
-      </a-form-item>
+      
     </a-form>
   </div>
 </template>
