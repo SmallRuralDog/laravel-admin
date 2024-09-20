@@ -35,10 +35,10 @@ function admin_url($path = '', $parameters = [], $secure = null)
     return url(admin_base_path($path), $parameters, $secure);
 }
 
-//给现有的URL拼接参数
+//给现有的 URL 拼接参数
 function get_url_with_parameter($url, $parameters = [])
 {
-    //判断是否是url
+    //判断是否是 url
     if (!filter_var($url, FILTER_VALIDATE_URL)) {
         return $url;
     }
@@ -251,9 +251,9 @@ function vite_assets(): HtmlString
     }
 
     return new HtmlString(<<<HTML
-    <script type="module" crossorigin src="/admin/assets/DcTOGpb2.js"></script>
-    <link rel="modulepreload" crossorigin href="/admin/assets/CG0sQdSw.js">
-    <link rel="stylesheet" crossorigin href="/admin/assets/YaukgyY6.css">
+    <script type="module" crossorigin src="/admin/assets/CRY1k-X5.js"></script>
+    <link rel="modulepreload" crossorigin href="/admin/assets/CXHZ_blF.js">
+    <link rel="stylesheet" crossorigin href="/admin/assets/D4MQ2JwT.css">
     <link rel="stylesheet" crossorigin href="/admin/assets/Dr7rAe4W.css">
     HTML
     );
