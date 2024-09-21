@@ -15,6 +15,13 @@ function admin_path(string $path = ''): string
     return ucfirst(config('admin.directory')) . ($path ? DIRECTORY_SEPARATOR . $path : $path);
 }
 
+function admin_route($path = ''): string
+{
+    $prefix = trim(admin_config('route.prefix'));
+    $path = str_replace($prefix . '/', '/', $path);
+    return (string)Str::of($path)->finish('/')->start('/')->rtrim("/");
+}
+
 function admin_base_path($path = ''): string
 {
     $prefix = '/' . trim(config('admin.route.prefix'), '/');
