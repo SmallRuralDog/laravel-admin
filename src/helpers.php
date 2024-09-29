@@ -33,13 +33,12 @@ function admin_base_path($path = ''): string
     return $prefix . '/' . $path;
 }
 
-function admin_url($path = '', $parameters = [], $secure = null)
+function admin_url($path = '', $parameters = [])
 {
     if (URL::isValidUrl($path)) {
         return $path;
     }
-    $secure = $secure ?: (config('admin.https') || config('admin.secure'));
-    return url(admin_base_path($path), $parameters, $secure);
+    return url(admin_base_path($path), $parameters);
 }
 
 //给现有的 URL 拼接参数
