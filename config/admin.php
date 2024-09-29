@@ -19,6 +19,7 @@ return [
 
     'directory' => app_path('Admin'),
     'bootstrap' => app_path('Admin/bootstrap.php'),
+    'https'=> env('ADMIN_HTTPS', false),
     'route' => [
         'domain' => env('ADMIN_ROUTE_DOMAIN'),
         'prefix' => env('ADMIN_ROUTE_PREFIX', 'laravel-admin'),
