@@ -121,31 +121,26 @@ trait FormHooks
 
     /**
      * 触发编辑时钩子
-     * @param $id
-     * @return void
      */
-    protected function callEditing($id): void
+    protected function callEditing($id)
     {
-        $this->callHooks('editing', $id);
+        return  $this->callHooks('editing', $id);
     }
 
     /**
      * 触发编辑数据时钩子
-     * @param $data
-     * @return void
      */
-    protected function callEdiData(&$data): void
+    protected function callEdiData(&$data)
     {
-        $this->callHooks('editData', $data);
+        return $this->callHooks('editData', $data);
     }
 
     /**
      * 触发提交时钩子
-     * @return void
      */
-    protected function callSubmitted(): void
+    protected function callSubmitted()
     {
-        $this->callHooks('submitted');
+      return  $this->callHooks('submitted');
     }
 
     /**
@@ -158,30 +153,26 @@ trait FormHooks
 
     /**
      * 触发保存后钩子
-     * @return void
      */
-    protected function callSaved(): void
+    protected function callSaved()
     {
-        $this->callHooks('saved');
+        return  $this->callHooks('saved');
     }
 
     /**
      * 触发删除时钩子
-     * @param $id
-     * @return void
      */
-    protected function callDeleting($id): void
+    protected function callDeleting($id)
     {
-        $this->callHooks('deleting', $id);
+       return $this->callHooks('deleting', $id);
     }
 
     /**
      * 触发删除后钩子
-     * @return void
      */
-    protected function callDeleted(): void
+    protected function callDeleted()
     {
-        $this->callHooks('deleted');
+      return  $this->callHooks('deleted');
     }
 
 

@@ -56,7 +56,6 @@ trait FormResource
     }
 
 
-
     private function input($key, $value = null)
     {
         if (is_null($value)) {
@@ -76,7 +75,10 @@ trait FormResource
         //处理要过滤的字段
         $this->inputs = array_merge($this->removeIgnoredFields($data), $this->inputs);
         //保存前钩子
-        $this->callSaving();
+        $res = $this->callSaving();
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
 
         //处理关联字段
         $this->relations = $this->getRelationInputs($this->inputs);
@@ -308,7 +310,10 @@ trait FormResource
     {
 
         //提交事件
-        $this->callSubmitted();
+        $res = $this->callSubmitted();
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         $data = $this->request->all();
         //验证数据
         $check = $this->validatorData($data);
@@ -324,7 +329,10 @@ trait FormResource
         $this->model()->save();
         $this->updateRelation($this->relations);
         $item = $this->model();
-        $this->callSaved();
+        $res = $this->callSaved();
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         return amis_data($item);
 
     }
@@ -335,7 +343,10 @@ trait FormResource
     public function edit($id): self
     {
 
-        $this->callEditing($id);
+        $res = $this->callEditing($id);
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         $this->editKey = $id;
         $this->isEdit = true;
         $this->initEditData();
@@ -344,9 +355,8 @@ trait FormResource
 
     /**
      * 编辑数据
-     * @return void
      */
-    private function initEditData(): void
+    private function initEditData()
     {
 
         $setWith = collect($this->builder->getEagerLoads())->keys()->toArray();
@@ -361,7 +371,11 @@ trait FormResource
 
         $this->prepareEditData($this->editData);
 
-        $this->callEdiData($this->editData);
+        $res = $this->callEdiData($this->editData);
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
+        return null;
     }
 
     /**
@@ -453,7 +467,10 @@ trait FormResource
      */
     private function _update($data): ?JsonResponse
     {
-        $this->callSubmitted();
+        $res = $this->callSubmitted();
+        if ($res) {
+            return $res;
+        }
         //验证数据
         $check = $this->validatorData($data);
         if ($check) {
@@ -469,7 +486,10 @@ trait FormResource
             $this->model->save();
             $this->updateRelation($this->relations);
         });
-        $this->callSaved();
+        $res = $this->callSaved();
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         return null;
     }
 
@@ -478,7 +498,10 @@ trait FormResource
      */
     public function destroy($ids): JsonResponse
     {
-        $this->callDeleting($ids);
+        $res = $this->callDeleting($ids);
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         $relations = $this->getRelations();
         $ids = explode(',', $ids);
         $items = $this->getItems();
@@ -497,7 +520,10 @@ trait FormResource
             $this->deleteRelation($relations);
             $item->delete();
         }
-        $this->callDeleted();
+        $res = $this->callDeleted();
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         return amis_data("删除成功");
     }
 
