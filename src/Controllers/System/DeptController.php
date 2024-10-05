@@ -35,6 +35,8 @@ class DeptController extends AdminController
                 ->useTableColumn(Each::make()->items(Tpl::make()->tpl("<span class='label label-default m-r-sm'>\${name}</span>")));
             $grid->column('order', '排序')->inputNumber();
             $grid->column('updated_at', '更新时间');
+
+            $grid->drawer();
         });
 
     }

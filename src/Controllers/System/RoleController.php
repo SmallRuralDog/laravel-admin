@@ -39,6 +39,8 @@ class RoleController extends AdminController
 
             });
 
+            $grid->drawer();
+
         });
     }
 

@@ -5,6 +5,7 @@ namespace SmallRuralDog\Admin\Components\Grid;
 use SmallRuralDog\Admin\Components\Form;
 use SmallRuralDog\Admin\Components\Grid;
 use SmallRuralDog\Admin\Renderer\Action\DialogAction;
+use SmallRuralDog\Admin\Renderer\Action\DrawerAction;
 use SmallRuralDog\Admin\Renderer\Service;
 
 class DialogForm
@@ -15,6 +16,7 @@ class DialogForm
     protected DialogAction $createDialogAction;
     protected DialogAction $editDialogAction;
 
+
     protected int|string $size = 'lg';
 
     public function __construct(Grid $grid)
@@ -22,6 +24,7 @@ class DialogForm
         $this->grid = $grid;
         $this->createDialogAction = DialogAction::make()->label("新建")->level('primary')->icon('fa fa-add');
         $this->editDialogAction = DialogAction::make()->label("编辑")->level('link')->icon('fa fa-edit icon-mr mr-2');
+
     }
 
     /**
@@ -84,18 +87,28 @@ class DialogForm
     public function render($api, bool $edit = false): DialogAction
     {
         if ($edit) {
-            $this->editDialogAction->dialog([
+            $body = [
                 'title' => '编辑',
                 'size' => $this->size,
                 'body' => Service::make()->schemaApi($api),
-            ]);
+            ];
+            if ($this->grid->isDrawerForm()) {
+                $this->editDialogAction->actionType('drawer')->drawer($body);
+            } else {
+                $this->editDialogAction->dialog($body);
+            }
             return $this->editDialogAction;
         }
-        $this->createDialogAction->dialog([
+        $body = [
             'title' => '新建',
             'size' => $this->size,
             'body' => $this->form ?: Service::make()->schemaApi($api),
-        ]);
+        ];
+        if ($this->grid->isDrawerForm()) {
+            $this->createDialogAction->actionType('drawer')->drawer($body);
+        } else {
+            $this->createDialogAction->dialog($body);
+        }
         return $this->createDialogAction;
     }
 

@@ -46,6 +46,9 @@ class MenuController extends AdminController
             $grid->column('show', '显示')->status();
             $grid->column('status', '启用')->status();
             $grid->column('updated_at', '更新时间');
+
+            $grid->drawer();
+            $grid->setDialogFormSize('lg');
         });
     }
 

@@ -12,6 +12,8 @@ trait GridDialogForm
 
     protected DialogForm $dialogForm;
 
+    protected bool $isDrawerForm = false;
+
     /**
      * 弹窗表单模式
      * @return DialogForm
@@ -21,6 +23,21 @@ trait GridDialogForm
         $this->isDialogForm = true;
         $this->dialogForm = new DialogForm($this);
         return $this->dialogForm;
+    }
+
+    /**
+     * 抽屉表单模式
+     * @return void
+     */
+    public function drawer(): void
+    {
+        $this->isDrawerForm = true;
+        $this->isDialogForm = false;
+    }
+
+    public function isDrawerForm(): bool
+    {
+        return $this->isDrawerForm;
     }
 
     /**
@@ -36,7 +53,7 @@ trait GridDialogForm
     /**
      * 使用弹窗表单
      */
-    public function useDialogForm(Closure $closure):self
+    public function useDialogForm(Closure $closure): self
     {
         $closure($this->dialogForm);
         return $this;
