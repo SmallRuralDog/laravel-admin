@@ -2,7 +2,8 @@
 
 namespace SmallRuralDog\Admin\Renderer;
 
-use SmallRuralDog\Admin\Renderer\table\Table;
+
+use SmallRuralDog\Admin\Renderer\Table\Table;
 
 /**
  * CRUD 渲染器
