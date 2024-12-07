@@ -321,7 +321,10 @@ trait FormResource
             return $check;
         }
         //预处理数据
-        $this->prepare($data);
+        $res =  $this->prepare($data);
+        if ($res instanceof JsonResponse) {
+            return $res;
+        }
         $inserts = $this->prepareInsert($this->updates);
         foreach ($inserts as $key => $value) {
             $this->model()->setAttribute($key, $value);
@@ -477,7 +480,10 @@ trait FormResource
             return $check;
         }
         //预处理数据
-        $this->prepare($data);
+        $res = $this->prepare($data);
+        if ($res instanceof JsonResponse) {
+            return $check;
+        }
         $updates = $this->prepareUpdate($this->updates);
         foreach ($updates as $key => $value) {
             $this->model->setAttribute($key, $value);

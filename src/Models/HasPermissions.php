@@ -210,8 +210,10 @@ trait HasPermissions
                 }
                 break;
             case DataPermissionsType::DEPT_AND_SUB:
-                $check = true;
-                $userIds = SystemUser::query()->whereIn('dept_id', $this->getUserDeptSonIds(true))->pluck('id')->toArray();
+                [$check, $deptIds] = $this->getUserDeptSonIds($addSelf);
+                $userIds = SystemUser::query()->when($check, function ($query) use ($deptIds) {
+                    $query->whereIn('dept_id', $deptIds);
+                })->pluck('id')->toArray();
                 if ($addSelf) {
                     $userIds[] = $this->getKey();
                 }
@@ -219,6 +221,9 @@ trait HasPermissions
             case DataPermissionsType::ALL:
                 break;
         }
+
+        //数组去重
+        $userIds = array_unique($userIds);
 
         return [$check, $userIds];
 
