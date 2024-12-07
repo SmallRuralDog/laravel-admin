@@ -261,7 +261,7 @@ trait HasPermissions
             $res['show'] = (bool)$menu->show;
             $res['params'] = $menu->params ?? [];
             return $res;
-        });
+        })->unique('id')->values();;
 
         return [
             'active_menus' => $list->pluck('active_menus', 'id')->toArray(),

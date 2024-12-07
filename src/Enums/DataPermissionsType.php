@@ -25,6 +25,6 @@ enum DataPermissionsType: string
     /**
      * 全部
      */
-    case ALL = '999';
+    case ALL = '99';
 
 }
