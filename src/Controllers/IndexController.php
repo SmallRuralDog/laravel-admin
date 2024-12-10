@@ -21,6 +21,20 @@ class IndexController extends AdminBase
         return redirect(route('admin.root'));
     }
 
+    public function setLang(Request $request)
+    {
+        try {
+            $lang = $request->input('lang');
+            if ($lang) {
+                $cookie = cookie('admin-language', $lang, 86400);
+                return amis_success()->cookie($cookie);
+            }
+        } catch (Exception $exception) {
+            return amis_error($exception->getMessage());
+        }
+
+    }
+
     public function root(Request $request): Response
     {
         $theme = $request->cookie('arco-theme');
@@ -40,7 +54,9 @@ class IndexController extends AdminBase
             'apiBase' => admin_url("/"),
             'prefix' => config('admin.route.prefix'),
             'openCaptcha' => false,
-            'captchaUrl' => route('admin.auth.captcha')
+            'captchaUrl' => route('admin.auth.captcha'),
+            'language' => config('admin.language'),
+            'currentLanguage' => $request->cookie('admin-language') ?: config('admin.language.default'),
         ];
 
         $data['config'] = $config;

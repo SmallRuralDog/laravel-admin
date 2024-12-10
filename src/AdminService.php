@@ -17,6 +17,38 @@ use Validator;
 
 class AdminService
 {
+    public static $scripts = [];
+
+    public static $styles = [];
+
+
+
+
+
+    public static function script($name, $path): static
+    {
+        static::$scripts[$name] = $path;
+
+        return new static;
+    }
+
+    public static function style($name, $path): static
+    {
+        static::$styles[$name] = $path;
+
+        return new static;
+    }
+
+    public static function scripts(): array
+    {
+        return static::$scripts;
+    }
+
+    public static function styles(): array
+    {
+        return static::$styles;
+    }
+
 
     public function bootstrap()
     {

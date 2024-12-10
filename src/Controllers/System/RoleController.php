@@ -21,10 +21,10 @@ class RoleController extends AdminController
         return Grid::make(SystemRole::query(), function (Grid $grid) {
 
 
-            $grid->column('name', '名称');
-            $grid->column('slug', '标识');
-            $grid->column('data_permissions_type', '数据权限类型')->mapping(SystemRole::DATA_PERMISSIONS_TYPE);
-            $grid->column('created_at', '创建时间');
+            $grid->column('name', __("admin::admin.name"));
+            $grid->column('slug', __("admin::admin.slug"));
+            $grid->column('data_permissions_type', __("admin::admin.data_permissions_type"))->mapping(SystemRole::DATA_PERMISSIONS_TYPE);
+            $grid->column('created_at', __("admin::admin.created_at"));
             $grid->setDialogFormSize('lg');
 
             $grid->actions(function (Grid\Actions $actions) {
@@ -48,14 +48,14 @@ class RoleController extends AdminController
     {
         return Form::make(SystemRole::query(), function (Form $form) {
             $form->customLayout([
-                Group::make()->label("基础信息")->body(
+                Group::make()->label(__("admin::admin.basic_info"))->body(
                     [
-                        $form->item('name', '名称')->required()->useFormItem(),
-                        $form->item('slug', '标识')->required()->useFormItem(),
+                        $form->item('name', __("admin::admin.name"))->required()->useFormItem(),
+                        $form->item('slug', __("admin::admin.slug"))->required()->useFormItem(),
                     ]
                 ),
 
-                $form->item('data_permissions_type', '数据权限类型')
+                $form->item('data_permissions_type', __("admin::admin.data_permissions_type"))
                     ->required()
                     ->value(DataPermissionsType::SELF->getValue())
                     ->useFormItem(Select::make()
@@ -63,7 +63,7 @@ class RoleController extends AdminController
                     ),
 
 
-                $form->item('menus', '菜单与权限')->useFormItem(InputTree::make()
+                $form->item('menus', __("admin::admin.menus"))->useFormItem(InputTree::make()
                     ->extractValue(true)
                     ->joinValues(false)
                     ->labelField("name")

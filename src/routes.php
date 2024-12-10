@@ -20,6 +20,7 @@ Route::group([
     $router->get('/', [IndexController::class, "index"]);
     $router->get('/view', [IndexController::class, "root"])->name('admin.root');
     $router->get('/view/{name}', [IndexController::class, "root"])->where('name', '.*');
+    $router->post('/setLang', [IndexController::class, "setLang"])->name('admin.setLang');
 
     $router->any('/handleAction', [HandleController::class, 'action'])->name('admin.handleAction');
 

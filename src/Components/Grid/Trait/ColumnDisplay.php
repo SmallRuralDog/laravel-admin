@@ -47,7 +47,7 @@ trait ColumnDisplay
     public function each(Closure $closure = null): self
     {
         $each = Each::make();
-        $each->placeholder('暂无数据');
+        $each->placeholder(__("admin::admin.no_data"));
 
         $each->items(Tpl::make()->tpl("<span class='label label-info m-r-sm'><%= this.item %></span>"));
 

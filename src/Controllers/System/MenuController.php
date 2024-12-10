@@ -37,15 +37,15 @@ class MenuController extends AdminController
                 ->perPage(100)
                 ->keepItemSelectionOnPageChange(true);
 
-            $grid->column('name', '名称');
-            $grid->column('icon', '图标')->useTableColumn(Tpl::make()->tpl('<i class="${icon} mr-2"></i>${icon}'))->width(150);
-            $grid->column('type', '类型')->mapping(SystemMenu::TYPE_LABEL);
-            $grid->column('path', '节点路由');
-            $grid->column('permission', '权限标识');
-            $grid->column('order', '排序')->inputNumber();
-            $grid->column('show', '显示')->status();
-            $grid->column('status', '启用')->status();
-            $grid->column('updated_at', '更新时间');
+            $grid->column('name', __("admin::admin.name"));
+            $grid->column('icon', __("admin::admin.icon"))->useTableColumn(Tpl::make()->tpl('<i class="${icon} mr-2"></i>${icon}'))->width(150);
+            $grid->column('type', __("admin::admin.type"))->mapping(SystemMenu::TYPE_LABEL);
+            $grid->column('path', __("admin::admin.path"));
+            $grid->column('permission', __("admin::admin.permission"));
+            $grid->column('order', __("admin::admin.order"))->inputNumber();
+            $grid->column('show', __("admin::admin.is_show"))->status();
+            $grid->column('status', __("admin::admin.status"))->status();
+            $grid->column('updated_at', __("admin::admin.updated_at"));
 
             $grid->drawer();
             $grid->setDialogFormSize('lg');
@@ -58,41 +58,41 @@ class MenuController extends AdminController
 
             $form->customLayout([
 
-                $form->item('type', '菜单类型')
+                $form->item('type', __("admin::admin.type"))
                     ->value('dir')
                     ->useFormItem(
                         Radios::make()->options([
-                            'dir' => '目录',
-                            'menu' => '菜单',
-                            'permission' => '权限',
+                            'dir' => __("admin::admin.dir"),
+                            'menu' => __("admin::admin.menu"),
+                            'permission' => __("admin::admin.permission"),
                         ])
                     )->disabled($this->isEdit),
-                $form->item('name', '节点名称')
+                $form->item('name', __("admin::admin.name"))
                     ->required()
                     ->useFormItem(),
-                $form->item('parent_id', '上级节点')->value(0)->useFormItem(MenuComponent::make()->routeParentSelect()),
+                $form->item('parent_id', __("admin::admin.parent"))->value(0)->useFormItem(MenuComponent::make()->routeParentSelect()),
 
-                $form->item('path', '路由地址')
+                $form->item('path', __("admin::admin.path"))
                     ->useFormItem(MenuComponent::make()->routePathInput())->requiredOn('type=="menu"')->visibleOn('(type=="menu" || type=="permission") && name'),
 
-                $form->item('auto_son_permission', '自动生成资源路由子权限')
-                    ->labelRemark('会根据路由地址，自动查找出资源路由，并生成对应的权限')
+                $form->item('auto_son_permission', __("admin::admin.auto_son_permission"))
+                    ->labelRemark(__("admin::admin.auto_son_permission_remark"))
                     ->useFormItem(MenuComponent::make()->routePermissionInput())
                     ->visibleOn('type=="menu" && name && path'),
 
-                $form->item('permission', '权限')
+                $form->item('permission', __("admin::admin.permission"))
                     ->useFormItem()
                     ->required(true)
                     ->visibleOn('type=="permission"'),
 
 
-                $form->item('icon', '节点图标')
+                $form->item('icon', __("admin::admin.icon"))
                     ->useFormItem()
                     ->required(true)
                     ->visibleOn('type=="dir"')
-                    ->description("查看图标列表 <a target='_blank' href='https://fontawesome.com/search?m=free'>Font Awesome</a>")
-                    ->placeholder("例如：fa-solid fa-house"),
-                $form->item('order', '排序')
+                    ->description("<a target='_blank' href='https://fontawesome.com/search?m=free'>Font Awesome</a>")
+                    ->placeholder("fa-solid fa-house"),
+                $form->item('order', __("admin::admin.order"))
                     ->value(1)
                     ->vRequired()
                     ->vInteger()
@@ -100,19 +100,19 @@ class MenuController extends AdminController
                     ->useFormItem(InputNumber::make()),
 
                 Group::make()->body([
-                    $form->item('is_ext', '是否外链')->value(false)->useFormItem(InputSwitch::make())->columnRatio(2),
-                    $form->item('ext_open_mode', '外链打开方式')
+                    $form->item('is_ext', __("admin::admin.is_ext"))->value(false)->useFormItem(InputSwitch::make())->columnRatio(2),
+                    $form->item('ext_open_mode', __("admin::admin.ext_open_mode"))
                         ->value('blank')
                         ->useFormItem(Radios::make()->options([
-                            'self' => '当前窗口',
-                            'blank' => '新窗口',
+                            'self' => __("admin::admin.self"),
+                            'blank' => __("admin::admin.blank"),
                         ]))->visibleOn('is_ext'),
                 ]),
                 Group::make()->body([
-                    $form->item('show', '是否显示')->value(true)->useFormItem(InputSwitch::make())->columnRatio(2),
-                    $form->item('active_menu', '高亮菜单')->useFormItem(MenuComponent::make()->routeParentSelect())->visibleOn('!show'),
+                    $form->item('show', __("admin::admin.is_show"))->value(true)->useFormItem(InputSwitch::make())->columnRatio(2),
+                    $form->item('active_menu', __("admin::admin.active_menu"))->useFormItem(MenuComponent::make()->routeParentSelect())->visibleOn('!show'),
                 ]),
-                $form->item('status', '状态')->value(true)->useFormItem(InputSwitch::make()),
+                $form->item('status', __("admin::admin.status"))->value(true)->useFormItem(InputSwitch::make()),
 
             ]);
 

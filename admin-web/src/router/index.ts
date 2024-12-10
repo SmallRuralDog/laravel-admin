@@ -52,10 +52,6 @@ router.afterEach((to) => {
   if (!hasLogin && !isVisitorPage) {
     toRouter({ name: PAGES.login }, true)
   }
-
-  const menu = useAppStore().getMenuItemByUri(to.path)
-
-  menu && setRouteEmitter(menu)
 })
 
 /**

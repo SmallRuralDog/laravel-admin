@@ -16,7 +16,7 @@ const useAppStore = defineStore('tabBar', {
     cacheTabList: new Set(['home']),
     tagList: [
       {
-        name: '工作台',
+        name: i18n.global.t('home'),
         id: 'home',
         path: '/home',
         params: {}

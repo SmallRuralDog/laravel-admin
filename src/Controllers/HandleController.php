@@ -75,7 +75,7 @@ class HandleController extends AdminBase
             } else {
                 $path = $file->storeAs($path, $name, $disk);
             }
-            abort_if(!$path, 400, '上传失败');
+            abort_if(!$path, 400, __("admin::admin.upload_fail"));
 
             $url = Storage::disk($disk)->url($path);
 

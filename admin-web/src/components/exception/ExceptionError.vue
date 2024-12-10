@@ -2,8 +2,10 @@
   <div class="content">
     <a-result class="result" :status="status" :subtitle="title"></a-result>
     <div class="operation-row">
-      <a-button key="again" @click="retry" style="margin-right: 16px"> 重试 </a-button>
-      <a-button key="back" type="primary" @click="goBack"> 返回 </a-button>
+      <a-button key="again" @click="retry" style="margin-right: 16px">
+        {{ $t('zhong_shi') }}
+      </a-button>
+      <a-button key="back" type="primary" @click="goBack"> {{ $t('fan_hui') }} </a-button>
     </div>
   </div>
 </template>

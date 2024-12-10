@@ -14,23 +14,23 @@
     <template #content>
       <a-doption :disabled="disabledReload" :value="Eaction.reload">
         <icon-refresh />
-        <span>重新加载</span>
+        <span>{{ $t('zhong_xin_jia_zai') }}</span>
       </a-doption>
       <a-doption class="sperate-line" :disabled="disabledCurrent" :value="Eaction.current">
         <icon-close />
-        <span>关闭当前标签页</span>
+        <span>{{ $t('guan_bi_dang_qian_biao_q') }}</span>
       </a-doption>
       <a-doption :disabled="disabledLeft" :value="Eaction.left">
         <icon-to-left />
-        <span>关闭左侧标签页</span>
+        <span>{{ $t('guan_bi_zuo_ce_biao_qian') }}</span>
       </a-doption>
       <a-doption class="sperate-line" :disabled="disabledRight" :value="Eaction.right">
         <icon-to-right />
-        <span>关闭右侧标签页</span>
+        <span>{{ $t('guan_bi_you_ce_biao_qian') }}</span>
       </a-doption>
       <a-doption :value="Eaction.others">
         <icon-swap />
-        <span>关闭其它标签页</span>
+        <span>{{ $t('guan_bi_qi_ta_biao_qian') }}</span>
       </a-doption>
     </template>
   </a-dropdown>
@@ -52,7 +52,7 @@ const props = defineProps({
   itemData: {
     type: Object as PropType<TagProps>,
     default() {
-      return []
+      return {}
     }
   },
   index: {

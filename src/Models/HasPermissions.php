@@ -252,7 +252,7 @@ trait HasPermissions
 
             $res['id'] = (string)$menu->id;
             $res['path'] = $path;
-            $res['name'] = $menu->name;
+            $res['name'] = __($menu->name);
             $res['icon'] = $menu->icon;
             $res['parent_id'] = $menu->parent_id;
             $res['is_ext'] = (bool)$menu->is_ext;

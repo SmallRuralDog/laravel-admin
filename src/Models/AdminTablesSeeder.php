@@ -27,13 +27,13 @@ class AdminTablesSeeder extends Seeder
         $menus = [
             [
                 'type' => 'dir',
-                'name' => '仪表盘',
+                'name' => "admin::admin.dashboard",//仪表盘
                 'icon' => 'fa-solid fa-gauge',
                 'order' => 99,
                 'children' => [
                     [
                         'type' => 'menu',
-                        'name' => '数据概览',
+                        'name' => 'admin::admin.data_overview',//数据概览
                         'path' => 'home',
                         'order' => 1,
                     ]
@@ -41,13 +41,13 @@ class AdminTablesSeeder extends Seeder
             ],
             [
                 'type' => 'dir',
-                'name' => '系统管理',
+                'name' => 'admin::admin.system_management',//系统管理
                 'icon' => 'fa-solid fa-gear',
                 'order' => 98,
                 'children' => [
                     [
                         'type' => 'menu',
-                        'name' => '用户管理',
+                        'name' => 'admin::admin.user_management',//用户管理
                         'path' => 'system/user',
                         'order' => 96,
                         'resource' => true,
@@ -55,7 +55,7 @@ class AdminTablesSeeder extends Seeder
                         'children' => [
                             [
                                 'type' => 'menu',
-                                'name' => '个人设置',
+                                'name' => 'admin::admin.user_setting',//个人设置
                                 'order' => 1,
                                 'path' => 'userSetting',
                                 'show' => false,
@@ -64,7 +64,7 @@ class AdminTablesSeeder extends Seeder
                     ],
                     [
                         'type' => 'menu',
-                        'name' => '角色管理',
+                        'name' => 'admin::admin.role_management',//角色管理
                         'path' => 'system/role',
                         'order' => 97,
                         'resource' => true,
@@ -73,7 +73,7 @@ class AdminTablesSeeder extends Seeder
                     ],
                     [
                         'type' => 'menu',
-                        'name' => '部门管理',
+                        'name' => 'admin::admin.dept_management',//部门管理
                         'path' => 'system/dept',
                         'order' => 99,
                         'resource' => true,
@@ -81,7 +81,7 @@ class AdminTablesSeeder extends Seeder
                     ],
                     [
                         'type' => 'menu',
-                        'name' => '菜单管理',
+                        'name' => 'admin::admin.menu_management',//菜单管理
                         'path' => 'system/menu',
                         'order' => 98,
                         'resource' => true,
@@ -89,7 +89,7 @@ class AdminTablesSeeder extends Seeder
                     ],
                     [
                         'type' => 'menu',
-                        'name' => '配置管理',
+                        'name' => 'admin::admin.setting_management',//配置管理
                         'path' => 'system/setting',
                         'order' => 95,
                     ],

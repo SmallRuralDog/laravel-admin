@@ -20,44 +20,10 @@ const build = () => {
   amisScoped.value = amis.embed(
     amisEL.value,
     props.amisJson,
-    {},
     {
-      /*fetcher: ({
-        url, // 接口地址
-        method, // 请求方法 get、post、put、delete
-        data, // 请求数据
-        responseType,
-        config, // 其他配置
-        headers // 请求头
-      }: any) => {
-        config = config || {}
-        config.withCredentials = true
-        responseType && (config.responseType = responseType)
-
-        config.headers = headers || {}
-
-        if (method !== 'post' && method !== 'put' && method !== 'patch') {
-          if (data) {
-            config.params = data
-          }
-          return (amisHttp as any)[method](url, config)
-          //@ts-ignore
-        } else if (data && data instanceof FormData) {
-          config.headers = config.headers || {}
-          config.headers['Content-Type'] = 'multipart/form-data'
-        } else if (
-          data &&
-          typeof data !== 'string' &&
-          //@ts-ignore
-          !(data instanceof Blob) &&
-          !(data instanceof ArrayBuffer)
-        ) {
-          data = JSON.stringify(data)
-          config.headers = config.headers || {}
-          config.headers['Content-Type'] = 'application/json'
-        }
-        return (amisHttp as any)[method](url, data, config)
-      },*/
+      locale: window.AmisAdmin.currentLanguage
+    },
+    {
       jumpTo: (to: string) => {
         if (to == 'back()') {
           router.back()

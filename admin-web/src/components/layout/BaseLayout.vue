@@ -89,6 +89,11 @@ provide('toggleDrawerMenu', () => {
 onMounted(() => {
   isInit.value = true
 })
+
+onBeforeRouteUpdate((to) => {
+  const menu = appStore.getMenuItemByUri(to.path)
+  menu && setRouteEmitter(menu)
+})
 </script>
 <style scoped lang="less">
 @nav-size-height: 60px;

@@ -11,7 +11,14 @@
     </div>
     <ul class="right-side">
       <li>
-        <a-tooltip :content="theme === 'light' ? '点击切换为暗黑模式' : '点击切换为亮色模式'">
+        <SetLang />
+      </li>
+      <li>
+        <a-tooltip
+          :content="
+            theme === 'light' ? $t('dian_ji_qie_huan_wei_an') : $t('dian_ji_qie_huan_wei_lia')
+          "
+        >
           <a-button class="nav-btn" type="outline" :shape="'circle'" @click="handleToggleTheme">
             <template #icon>
               <icon-moon-fill v-if="theme === 'dark'" />
@@ -21,7 +28,9 @@
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip :content="isFullscreen ? '点击退出全屏模式' : '点击切换全屏模式'">
+        <a-tooltip
+          :content="isFullscreen ? $t('dian_ji_tui_chu_quan_pin') : $t('dian_ji_qie_huan_quan_pi')"
+        >
           <a-button class="nav-btn" type="outline" :shape="'circle'" @click="toggleFullScreen">
             <template #icon>
               <icon-fullscreen-exit v-if="isFullscreen" />
@@ -40,13 +49,13 @@
             <a-doption>
               <a-space @click="$router.push('/userSetting')">
                 <icon-settings />
-                <span> 用户设置 </span>
+                <span> {{ $t('yong_hu_she_zhi') }} </span>
               </a-space>
             </a-doption>
             <a-doption>
               <a-space @click="handleLogout">
                 <icon-export />
-                <span> 退出登录 </span>
+                <span> {{ $t('tui_chu_deng_lu') }} </span>
               </a-space>
             </a-doption>
           </template>

@@ -17,6 +17,7 @@ declare module 'vue' {
     PageMenu: typeof import('./components/menu/PageMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SetLang: typeof import('./components/navbar/SetLang.vue')['default']
     TabBar: typeof import('./components/tabBar/TabBar.vue')['default']
     TabItem: typeof import('./components/tabBar/TabItem.vue')['default']
   }

@@ -165,6 +165,13 @@
     "useRequest": true,
     "apiGetMenuList": true,
     "apiGetPageRenderer": true,
-    "apiUserLogout": true
+    "apiUserLogout": true,
+    "useI18n": true,
+    "i18n": true,
+    "useAppI18n": true,
+    "getCookie": true,
+    "setCookie": true,
+    "useCookies": true,
+    "apiSetLang": true
   }
 }

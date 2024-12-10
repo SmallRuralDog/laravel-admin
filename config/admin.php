@@ -14,7 +14,16 @@ return [
     ],
     'loginTitle' => '登录',
     'loginDesc' => '欢迎登录',
-
+    'language' => [
+        'default' => 'zh-CN',
+        'options' => [
+            'zh_CN' => '简体中文',
+            //'zh_TW' => '繁體中文',
+            'en' => 'English',
+            'vi' => 'Tiếng Việt',
+            'id' => 'Bahasa Indonesia',
+        ],
+    ],
     'directory' => app_path('Admin'),
     'bootstrap' => app_path('Admin/bootstrap.php'),
     'route' => [

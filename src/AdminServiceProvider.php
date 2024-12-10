@@ -20,6 +20,7 @@ class AdminServiceProvider extends ServiceProvider
         'admin.bootstrap' => Middleware\Bootstrap::class,
         'admin.session' => Middleware\Session::class,
         'admin.permission' => Middleware\PermissionCheck::class,
+        'admin.lang' => Middleware\SetLang::class,
     ];
 
     protected array $middlewareGroups = [
@@ -28,6 +29,7 @@ class AdminServiceProvider extends ServiceProvider
             'admin.bootstrap',
             'admin.session',
             'admin.permission',
+            'admin.lang',
         ],
     ];
 
@@ -44,6 +46,9 @@ class AdminServiceProvider extends ServiceProvider
             __DIR__ . '/../admin-web/dist/amis' => public_path('admin/amis'),
             __DIR__ . '/../admin-web/dist/assets' => public_path('admin/assets'),
         ], 'admin-assets');
+
+        //加载语言文件
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'admin');
 
         //加载迁移文件
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');

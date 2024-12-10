@@ -23,44 +23,43 @@ class UserController extends AdminController
             [$check, $deptIds] = $admin->getUserDeptSonIds();
             if ($check) {
 
-                abort_if(count($deptIds) == 0, 403, '无权限');
+                abort_if(count($deptIds) == 0, 403, __("admin::admin.no_permission"));
 
                 $grid->builder()->where('dept_id', $deptIds);
             }
 
 
-            $grid->column('username', '用户名');
-            $grid->column('name', '姓名');
-            $grid->column('roles', '角色')
-                ->remark('绑定角色后，该用户将拥有该角色的权限')
+            $grid->column('username', __("admin::admin.username"));
+            $grid->column('name', __("admin::admin.name"));
+            $grid->column('roles', __("admin::admin.roles"))
+                ->remark(__("admin::admin.roles_remark"))
                 ->useTableColumn(Each::make()->items(Tpl::make()->tpl("<span class='label label-default m-l-sm'>\${name}</span>")));
 
-            $grid->column('dept.name', '所属部门')->remark('用户所属部门,如果部门绑定了权限,用户将继承部门权限');
+            $grid->column('dept.name', __("admin::admin.dept"))->remark(__("admin::admin.dept_remark"));
 
-            $grid->column('create_user.name', '创建人');
+            $grid->column('create_user.name', __("admin::admin.create_user"));
 
-            $grid->column('created_at', '创建时间');
+            $grid->column('created_at', __("admin::admin.created_at"));
 
             $grid->filter(function (Grid\Filter $filter) {
 
                 $filter->setAddColumnsClass("m:grid-cols-1");
 
-                $filter->like('username', '用户名');
-                $filter->like('name', '姓名');
+                $filter->like('username', __("admin::admin.username"));
+                $filter->like('name', __("admin::admin.name"));
 
 
-                $filter->where('dept_id', '部门', function ($q, $v) {
+                $filter->where('dept_id', __("admin::admin.dept"), function ($q, $v) {
                     $ids = Admin::getDeptSonById((int)$v, true);
                     $q->whereIn('dept_id', $ids);
                 })->useFormItem(DeptComponent::make()->deptSelect()->searchable(true));
 
-                $filter->where('created_at', '创建时间', function ($q, $v) {
+                $filter->where('created_at', __("admin::admin.created_at"), function ($q, $v) {
                     $v = explode(",", $v);
                     $q->where('created_at', '>=', $v[0]);
                     $q->where('created_at', '<=', $v[1]);
                 })->useFormItem(InputDateRange::make());
             });
-
         });
     }
 
@@ -70,28 +69,28 @@ class UserController extends AdminController
 
             $form->customLayout([
                 Group::make()->body([
-                    $form->item('username', '用户名')->required()->useFormItem(),
-                    $form->item('name', '昵称')
+                    $form->item('username', __("admin::admin.username"))->required()->useFormItem(),
+                    $form->item('name', __("admin::admin.name"))
                         ->required()
                         ->useFormItem(),
                 ]),
                 Group::make()->body([
 
-                    $form->item('password', '密码')
+                    $form->item('password', __("admin::admin.password"))
                         ->vConfirmed()
                         ->required($this->isCreate)
                         ->useFormItem(InputText::make()->password()),
-                    $form->item('password_confirmation', '确认密码')
+                    $form->item('password_confirmation', __("admin::admin.password_confirmation"))
                         ->required($this->isCreate)
                         ->useFormItem(InputText::make()->password()),
                 ]),
                 Group::make()->body(function () use ($form) {
                     $body = [
-                        $form->item('dept_id', '所属部门')
+                        $form->item('dept_id', __("admin::admin.dept"))
                             ->value(0)->useFormItem(DeptComponent::make()->deptSelect()),
                     ];
                     if (Admin::userInfo()->isAdministrator()) {
-                        $body[] = $form->item('roles', "角色")
+                        $body[] = $form->item('roles', __("admin::admin.roles"))
                             ->useFormItem(DeptComponent::make()->deptBindRoleSelect());
                     }
                     return $body;
@@ -110,7 +109,5 @@ class UserController extends AdminController
                 }
             });
         });
-
     }
-
 }

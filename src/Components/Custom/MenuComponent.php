@@ -44,7 +44,7 @@ class MenuComponent extends AutoRoute
         }
 
         return amis_data([
-            ['id' => 0, 'name' => '根目录', 'children' => arr2tree($list)],
+            ['id' => 0, 'name' => __("admin::admin.root"), 'children' => arr2tree($list)],
         ]);
     }
 
@@ -125,7 +125,7 @@ class MenuComponent extends AutoRoute
             ->source($api)
             ->joinValues(false)
             ->extractValue(true)
-            ->columnsCount([1, 3, 3, 3, 3, 3])
+            ->columnsCount([1, 2, 2, 2, 2, 2])
             ->checkAll(true);
 
     }

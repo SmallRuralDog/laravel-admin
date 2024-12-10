@@ -42,7 +42,7 @@ class Toolbar
     /**构建刷新按钮*/
     private function buildReloadButton(): Button
     {
-        return ReloadAction::make()->target($this->grid->getCrudName())->icon('fa fa-refresh')->label("刷新");
+        return ReloadAction::make()->target($this->grid->getCrudName())->icon('fa fa-refresh')->label(__("admin::admin.refresh"));
     }
 
     /**禁用新增按钮*/
@@ -207,11 +207,12 @@ class Toolbar
         if (!$this->disableBulkDelete && $this->grid->hasDeletePermission()) {
             $api = $this->grid->getDestroyUrl($this->grid->getBulkSelectIds());
             $res->add(AjaxAction::make()
-                ->label("批量删除")
+                ->label(__("admin::admin.batch_delete"))
                 ->level("danger")
                 ->api($api)
                 ->icon("fa fa-trash")
-                ->confirmText("确定要删除吗？"));
+                ->confirmTitle(__("admin::admin.confirm_title"))
+                ->confirmText(__("admin::admin.batch_delete_confirm")));
         }
         return $res->toArray();
     }

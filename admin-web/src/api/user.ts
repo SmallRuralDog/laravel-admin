@@ -1,3 +1,4 @@
+import type { Language } from '@/plugins/i18n'
 import type { MenuItem } from '@/stores/modules/user/types'
 
 export interface LoginData {
@@ -33,5 +34,11 @@ export function apiGetMenuList() {
 
 export async function apiGetPageRenderer(path: string, params?: any) {
   const method = alovaInstance.Get<any>(path, { params })
+  return method
+}
+
+//setLang
+export function apiSetLang(lang: Language) {
+  const method = alovaInstance.Post('/setLang', { lang })
   return method
 }

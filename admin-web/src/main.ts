@@ -11,6 +11,8 @@ import '@/assets/style/global.less'
 
 const app = createApp(App)
 
+useAppI18n(app)
+
 app.use(router)
 app.use(store)
 

@@ -12,11 +12,11 @@
     >
       <a-form-item
         field="username"
-        :rules="[{ required: true, message: '用户名不能为空' }]"
+        :rules="[{ required: true, message: $t('yong_hu_ming_bu_neng_wei') }]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input v-model="form.username" :placeholder="`用户名`">
+        <a-input v-model="form.username" :placeholder="$t('yong_hu_ming')">
           <template #prefix>
             <icon-user />
           </template>
@@ -24,11 +24,11 @@
       </a-form-item>
       <a-form-item
         field="password"
-        :rules="[{ required: true, message: `密码不能为空` }]"
+        :rules="[{ required: true, message: $t('mi_ma_bu_neng_wei_kong') }]"
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input-password v-model="form.password" :placeholder="`密码`" allow-clear>
+        <a-input-password v-model="form.password" :placeholder="$t('mi_ma')" allow-clear>
           <template #prefix>
             <icon-lock />
           </template>
@@ -37,18 +37,18 @@
 
       <a-form-item
         field="verification_code"
-        :rules="[{ required: true, message: ` 验证码不能为空` }]"
+        :rules="[{ required: true, message: $t('yan_zheng_ma_bu_neng_wei') }]"
         :validate-trigger="['change', 'blur']"
         hide-label
         v-if="config.opebCaptcha"
       >
         <a-space>
-          <a-input v-model="form.verification_code" :placeholder="`验证码`">
+          <a-input v-model="form.verification_code" :placeholder="$t('yan_zheng_ma')">
             <template #prefix>
               <icon-safe />
             </template>
           </a-input>
-          <a-tooltip content="点击刷新验证码">
+          <a-tooltip :content="$t('dian_ji_shua_xin_yan_zhe')">
             <img
               :src="codeUrl"
               @click="reloadCode"
@@ -61,9 +61,11 @@
       </a-form-item>
       <a-space :size="16" direction="vertical">
         <div class="login-form-password-actions">
-          <a-checkbox checked="remember" v-model="form.remember">记住我</a-checkbox>
+          <a-checkbox checked="remember" v-model="form.remember">{{ $t('ji_zhu_wo') }}</a-checkbox>
         </div>
-        <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
+        <a-button type="primary" html-type="submit" long :loading="loading">
+          {{ $t('deng_lu') }}
+        </a-button>
       </a-space>
     </a-form>
   </div>
@@ -118,7 +120,7 @@ const handleSubmit = async ({
     errorMessage.value = err.message
     return
   }
-  Message.success('登录成功')
+  Message.success(i18n.global.t('deng_lu_cheng_gong'))
   userStore.login(res)
   toRouter({ name: PAGES.home })
 }

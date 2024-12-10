@@ -102,8 +102,13 @@ function amis_data($data, $status = 0): JsonResponse
     ]);
 }
 
-function amis_success(string $message = '操作成功'): JsonResponse
+function amis_success(string $message = ""): JsonResponse
 {
+
+    if (!$message) {
+        $message = __("admin::admin.action_success");
+    }
+
     return response()->json([
         'status' => 0,
         'msg' => $message,
@@ -223,25 +228,25 @@ if (!function_exists('settings')) {
 function get_name_by_resource_route(string $name): string
 {
     if (str_ends_with($name, '.index')) {
-        return '列表';
+        return __('admin::admin.list');
     }
     if (str_ends_with($name, '.create')) {
-        return '创建';
+        return __('admin::admin.create');
     }
     if (str_ends_with($name, '.edit')) {
-        return '编辑';
+        return __('admin::admin.edit');
     }
     if (str_ends_with($name, '.destroy')) {
-        return '删除';
+        return __('admin::admin.delete');
     }
     if (str_ends_with($name, '.show')) {
-        return '详情';
+        return __('admin::admin.show');
     }
     if (str_ends_with($name, '.store')) {
-        return '保存';
+        return __('admin::admin.save');
     }
     if (str_ends_with($name, '.update')) {
-        return '更新';
+        return __('admin::admin.update');
     }
     return '';
 }
@@ -253,18 +258,20 @@ function vite_assets(): HtmlString
         if (!str_ends_with($viteUrl, '/')) {
             $viteUrl .= "/";
         }
-        return new HtmlString(<<<HTML
+        return new HtmlString(
+            <<<HTML
             <script type="module" src="$viteUrl@vite/client"></script>
             <script type="module" src="{$viteUrl}src/main.ts"></script>
         HTML
         );
     }
 
-    return new HtmlString(<<<HTML
-    <script type="module" crossorigin src="/admin/assets/C34trU7q.js"></script>
-    <link rel="modulepreload" crossorigin href="/admin/assets/JA_6wDNe.js">
-    <link rel="stylesheet" crossorigin href="/admin/assets/DMDu9aLK.css">
-    <link rel="stylesheet" crossorigin href="/admin/assets/BA_y0pdN.css">
+    return new HtmlString(
+        <<<HTML
+    <script type="module" crossorigin src="/admin/assets/CjvTegwE.js"></script>
+    <link rel="modulepreload" crossorigin href="/admin/assets/mP1IfPKX.js">
+    <link rel="stylesheet" crossorigin href="/admin/assets/zRycBrWt.css">
+    <link rel="stylesheet" crossorigin href="/admin/assets/Dtpd9geV.css">
     HTML
     );
 }

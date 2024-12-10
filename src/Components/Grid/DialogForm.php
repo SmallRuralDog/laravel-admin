@@ -22,8 +22,8 @@ class DialogForm
     public function __construct(Grid $grid)
     {
         $this->grid = $grid;
-        $this->createDialogAction = DialogAction::make()->label("新建")->level('primary')->icon('fa fa-add');
-        $this->editDialogAction = DialogAction::make()->label("编辑")->level('link')->icon('fa fa-edit icon-mr mr-2');
+        $this->createDialogAction = DialogAction::make()->label(__("admin::admin.create"))->level('primary')->icon('fa fa-add');
+        $this->editDialogAction = DialogAction::make()->label(__("admin::admin.edit"))->level('link')->icon('fa fa-edit icon-mr mr-2');
 
     }
 
@@ -88,7 +88,7 @@ class DialogForm
     {
         if ($edit) {
             $body = [
-                'title' => '编辑',
+                'title' => __("admin::admin.edit"),
                 'size' => $this->size,
                 'body' => Service::make()->schemaApi($api),
             ];
@@ -100,7 +100,7 @@ class DialogForm
             return $this->editDialogAction;
         }
         $body = [
-            'title' => '新建',
+            'title' => __("admin::admin.create"),
             'size' => $this->size,
             'body' => $this->form ?: Service::make()->schemaApi($api),
         ];

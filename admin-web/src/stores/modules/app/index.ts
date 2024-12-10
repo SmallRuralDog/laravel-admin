@@ -4,6 +4,7 @@ import defaultSettings from '@/config/settings.json'
 import type { MenuItem } from '../user/types'
 
 import { useCookies } from '@vueuse/integrations/useCookies'
+import type { Language } from '@/plugins/i18n'
 
 const { set } = useCookies()
 
@@ -56,7 +57,7 @@ const useAppStore = defineStore('app', {
       const [err, res] = await to(apiGetMenuList())
       if (err) {
         Notification.error({
-          title: '错误',
+          title: i18n.global.t('cuo_wu'),
           content: err.message
         })
         return
@@ -93,6 +94,16 @@ const useAppStore = defineStore('app', {
       })
 
       return result[0]
+    },
+    /**
+     * 设置语言
+     * @param language 语言
+     */
+    async setLanguage(language: Language) {
+      this.language = language
+      await to(apiSetLang(language))
+      i18n.global.locale = language
+      location.reload()
     }
   }
 })

@@ -10,6 +10,9 @@
         <LoginForm />
       </div>
     </div>
+    <div class="absolute top-20 right-20">
+      <SetLang />
+    </div>
   </div>
 </template>
 

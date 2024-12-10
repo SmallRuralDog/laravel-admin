@@ -36,4 +36,9 @@ export interface AmisAdmin {
   footer: string
   opebCaptcha: boolean
   captchaUrl: string
+  language: {
+    default: string
+    options: Record<string, string>
+  }
+  currentLanguage: string
 }

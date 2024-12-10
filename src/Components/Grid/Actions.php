@@ -40,10 +40,10 @@ class Actions
         $keyName = $this->grid->getPrimaryKey();
         $api = $this->grid->getDestroyUrl('${' . $keyName . '}');
         return AjaxAction::make()
-            ->label("删除")
+            ->label(__('admin::admin.delete'))
             ->level("link")
-            ->confirmText("确定要删除吗？")
-            ->confirmTitle("操作确认")
+            ->confirmText(__("admin::admin.delete_confirm"))
+            ->confirmTitle(__("admin::admin.confirm_title"))
             ->api($api)
             ->className('text-danger')
             ->icon('fa fa-trash-can mr-2');
@@ -200,6 +200,6 @@ class Actions
         if ($this->isRowAction()) {
             return $res->toArray();
         }
-        return [DropdownButton::make()->label("操作")->level('link')->buttons($res->toArray())];
+        return [DropdownButton::make()->label(__('admin::admin.actions'))->level('link')->buttons($res->toArray())];
     }
 }

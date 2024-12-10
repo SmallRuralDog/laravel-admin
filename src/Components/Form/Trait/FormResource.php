@@ -459,7 +459,7 @@ trait FormResource
                     return $check;
                 }
             }
-            return amis_success("更新成功");
+            return amis_success(__("admin::admin.update_success"));
         } catch (Exception $exception) {
             return amis_error($exception->getMessage());
         }
@@ -530,7 +530,7 @@ trait FormResource
         if ($res instanceof JsonResponse) {
             return $res;
         }
-        return amis_data("删除成功");
+        return amis_data(__("admin::admin.delete_success"));
     }
 
     private function deleteRelation($relations): void

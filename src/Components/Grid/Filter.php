@@ -20,7 +20,7 @@ class Filter extends AmisForm
 
     protected string $addColumnsClass = "";
 
-    public string $labelWidth = "60px";
+    public string $labelWidth = "80px";
 
     public function __construct()
     {
@@ -46,7 +46,7 @@ class Filter extends AmisForm
 
         $item = new Item($searchName, $label);
         $item->size('full');
-        $item->placeholder("请输入" . $label);
+        $item->placeholder(__("admin::admin.please_input",['name'=>$label]) );
         $this->filterItems[] = $item;
         return $item;
     }
@@ -144,10 +144,10 @@ class Filter extends AmisForm
     public function renderActions(): array
     {
         $actions = [
-            Button::make()->label("查询")->type("submit")->level("primary")->icon('fa fa-search'),
+            Button::make()->label(__("admin::admin.search"))->type("submit")->level("primary")->icon('fa fa-search'),
         ];
         if (!$this->isDisableReset) {
-            $actions[] = Button::make()->label("重置")->type("reset")->icon('fa fa-undo');
+            $actions[] = Button::make()->label(__("admin::admin.reset"))->type("reset")->icon('fa fa-undo');
         }
         return $actions;
 

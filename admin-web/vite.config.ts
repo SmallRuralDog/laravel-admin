@@ -27,6 +27,7 @@ export default defineConfig({
       imports: [
         'vue',
         'pinia',
+        'vue-i18n',
         'vue-router',
         {
           '@arco-design/web-vue': ['Message', 'Notification', 'Modal'],
@@ -36,7 +37,8 @@ export default defineConfig({
             'useThrottle',
             'useStorage',
             'useLocalStorage',
-            'useSession'
+            'useSession',
+            'useCookies'
           ],
           'alova/client': ['useRequest', 'usePagination', 'useForm', 'updateState'],
           'await-to-js': [['default', 'to']]
@@ -51,6 +53,7 @@ export default defineConfig({
         'src/utils',
         'src/api',
         'src/hooks',
+        'src/plugins',
         'src/components/*/**'
       ],
       eslintrc: {

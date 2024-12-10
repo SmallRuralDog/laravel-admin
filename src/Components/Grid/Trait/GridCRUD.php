@@ -178,7 +178,7 @@ trait GridCRUD
             } else {
                 $columns[] = [
                     'type' => 'operation',
-                    'label' => '操作',
+                    'label' => __('admin::admin.action'),
                     'width' => $this->actions->getWidth(),
                     'buttons' => $this->renderAction(),
                 ];
