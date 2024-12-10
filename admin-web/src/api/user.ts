@@ -32,6 +32,6 @@ export function apiGetMenuList() {
 }
 
 export async function apiGetPageRenderer(path: string, params?: any) {
-  const method = alovaInstance.Get<any>(path, params)
+  const method = alovaInstance.Get<any>(path, { params })
   return method
 }

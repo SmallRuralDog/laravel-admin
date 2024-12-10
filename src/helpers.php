@@ -261,7 +261,7 @@ function vite_assets(): HtmlString
     }
 
     return new HtmlString(<<<HTML
-    <script type="module" crossorigin src="/admin/assets/DwsKZaH3.js"></script>
+    <script type="module" crossorigin src="/admin/assets/C34trU7q.js"></script>
     <link rel="modulepreload" crossorigin href="/admin/assets/JA_6wDNe.js">
     <link rel="stylesheet" crossorigin href="/admin/assets/DMDu9aLK.css">
     <link rel="stylesheet" crossorigin href="/admin/assets/BA_y0pdN.css">
