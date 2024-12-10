@@ -2,10 +2,10 @@
   <div class="login-form-wrapper">
     <div class="login-form-title">{{ config.loginTitle }}</div>
     <div class="login-form-sub-title">{{ config.loginDesc }}</div>
-    <div class="login-form-error-msg">{{ errorMessage }}</div>
+    <div class="login-form-error-msg text-12">{{ errorMessage }}</div>
     <a-form
       ref="loginForm"
-      :model="userInfo"
+      :model="form"
       class="login-form"
       layout="vertical"
       @submit="handleSubmit"
@@ -16,7 +16,7 @@
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input v-model="userInfo.username" :placeholder="`用户名`">
+        <a-input v-model="form.username" :placeholder="`用户名`">
           <template #prefix>
             <icon-user />
           </template>
@@ -28,7 +28,7 @@
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input-password v-model="userInfo.password" :placeholder="`密码`" allow-clear>
+        <a-input-password v-model="form.password" :placeholder="`密码`" allow-clear>
           <template #prefix>
             <icon-lock />
           </template>
@@ -43,7 +43,7 @@
         v-if="config.opebCaptcha"
       >
         <a-space>
-          <a-input v-model="userInfo.verification_code" :placeholder="`验证码`">
+          <a-input v-model="form.verification_code" :placeholder="`验证码`">
             <template #prefix>
               <icon-safe />
             </template>
@@ -59,31 +59,21 @@
           </a-tooltip>
         </a-space>
       </a-form-item>
-        <a-space :size="16" direction="vertical">
-          <div class="login-form-password-actions">
-            <a-checkbox
-              checked="rememberPassword"
-              :model-value="loginConfig.rememberPassword"
-              @change="setRememberPassword as any"
-              >记住密码</a-checkbox
-            >
-          </div>
-          <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
-        </a-space>
-      
+      <a-space :size="16" direction="vertical">
+        <div class="login-form-password-actions">
+          <a-checkbox checked="remember" v-model="form.remember">记住我</a-checkbox>
+        </div>
+        <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
+      </a-space>
     </a-form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { ApiError } from '@/api/http'
-import type { LoginData } from '@/api/user'
 import type { ValidatedError } from '@arco-design/web-vue/es/form/interface'
 
 const config = ref(window.AmisAdmin)
 
-const errorMessage = ref('')
-const { loading, setLoading } = useLoading()
 const userStore = useUserStore()
 
 const codeUrl = ref(config.value.captchaUrl)
@@ -92,17 +82,25 @@ const reloadCode = () => {
   codeUrl.value = `${config.value.captchaUrl}?${Date.now()}`
 }
 
-const loginConfig = useStorage('login-config', {
-  rememberPassword: true,
-  username: '',
-  password: ''
-})
-const userInfo = reactive({
-  username: loginConfig.value.username,
-  password: loginConfig.value.password,
-  rememberPassword: loginConfig.value.rememberPassword,
-  verification_code: ''
-})
+const errorMessage = ref('')
+
+const { form, loading, send } = useForm(
+  (formData) => {
+    return apiUserLogin({
+      username: formData.username,
+      password: formData.password,
+      remember: formData.remember
+    })
+  },
+  {
+    initialForm: {
+      username: '',
+      password: '',
+      verification_code: '',
+      remember: false
+    }
+  }
+)
 
 const handleSubmit = async ({
   errors,
@@ -111,32 +109,18 @@ const handleSubmit = async ({
   errors: Record<string, ValidatedError> | undefined
   values: Record<string, any>
 }) => {
-  errorMessage.value = ''
-  if (loading.value) return
-  if (!errors) {
-    setLoading(true)
-    try {
-      await userStore.login(values as LoginData)
-
-      Message.success('登录成功')
-
-      toRouter({ name: PAGES.home })
-
-      const { rememberPassword } = loginConfig.value
-      const { username, password } = values
-
-      loginConfig.value.username = rememberPassword ? username : ''
-      loginConfig.value.password = rememberPassword ? password : ''
-    } catch (err) {
-      errorMessage.value = (err as ApiError).message
-    } finally {
-      setLoading(false)
-    }
+  if (errors) {
+    return
   }
-}
-const setRememberPassword = (value: boolean) => {
-  loginConfig.value.rememberPassword = value
-  userInfo.rememberPassword = value
+  errorMessage.value = ''
+  const [err, res] = await to(send(values))
+  if (err) {
+    errorMessage.value = err.message
+    return
+  }
+  Message.success('登录成功')
+  userStore.login(res)
+  toRouter({ name: PAGES.home })
 }
 </script>
 

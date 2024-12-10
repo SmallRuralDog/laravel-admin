@@ -34,12 +34,12 @@ class AdminServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        //发布配置文件
+        //发布配置文件 php artisan vendor:publish  --tag=admin-config --force
         $this->publishes([
             __DIR__ . '/../config/admin.php' => config_path('admin.php'),
         ], 'admin-config');
 
-        //发布资源文件
+        //发布资源文件 php artisan vendor:publish  --tag=admin-assets --force
         $this->publishes([
             __DIR__ . '/../admin-web/dist/amis' => public_path('admin/amis'),
             __DIR__ . '/../admin-web/dist/assets' => public_path('admin/assets'),

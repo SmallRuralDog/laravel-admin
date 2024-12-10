@@ -30,6 +30,7 @@ Route::group([
 
     $router->get('/auth/captcha', [AuthController::class, 'captcha'])->name('admin.auth.captcha');
     $router->post('/auth/login', [AuthController::class, 'login'])->name('admin.auth.login');
+    $router->get('/auth/logout', [AuthController::class, 'logout'])->name('admin.auth.logout');
 
 
     $router->resource("/system/dept", DeptController::class)->names('admin.system.dept');

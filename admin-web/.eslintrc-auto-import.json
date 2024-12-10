@@ -148,6 +148,23 @@
     "usePageStore": true,
     "user": true,
     "amisHttp": true,
-    "Modal": true
+    "Modal": true,
+    "DirectiveBinding": true,
+    "MaybeRef": true,
+    "MaybeRefOrGetter": true,
+    "onWatcherCleanup": true,
+    "useId": true,
+    "useModel": true,
+    "useTemplateRef": true,
+    "alovaInstance": true,
+    "apiUserLogin": true,
+    "to": true,
+    "updateState": true,
+    "useForm": true,
+    "usePagination": true,
+    "useRequest": true,
+    "apiGetMenuList": true,
+    "apiGetPageRenderer": true,
+    "apiUserLogout": true
   }
 }

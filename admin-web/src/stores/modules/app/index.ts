@@ -2,7 +2,6 @@ import type { AppState } from './types'
 import { Notification } from '@arco-design/web-vue'
 import defaultSettings from '@/config/settings.json'
 import type { MenuItem } from '../user/types'
-import type { ApiError } from '@/api/http'
 
 import { useCookies } from '@vueuse/integrations/useCookies'
 
@@ -54,16 +53,17 @@ const useAppStore = defineStore('app', {
       this.hideMenu = value
     },
     async fetchServerMenuConfig() {
-      try {
-        const { data } = await getMenuList()
-        this.serverMenu = data.menus
-        this.activeMenus = data.active_menus
-      } catch (error) {
+      const [err, res] = await to(apiGetMenuList())
+      if (err) {
         Notification.error({
           title: '错误',
-          content: (error as ApiError).message
+          content: err.message
         })
+        return
       }
+
+      this.serverMenu = res.menus
+      this.activeMenus = res.active_menus
     },
     clearServerMenu() {
       this.serverMenu = []

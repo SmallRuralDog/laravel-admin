@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use SmallRuralDog\Admin\Components\Form;
 use SmallRuralDog\Admin\Components\Grid;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * @method Grid grid(Request $request)
@@ -30,52 +31,76 @@ class AdminController extends AdminBase
 
     public function index(Request $request): JsonResponse
     {
-        return amis_data($this->grid($request)->render());
+        try {
+            return amis_data($this->grid($request)->render());
+        } catch (HttpException $exception) {
+            return amis_error($exception->getMessage());
+        }
     }
 
 
     public function create(Request $request): JsonResponse
     {
-        $this->isCreate = true;
-        return amis_data($this->form($request)->render());
+        try {
+            $this->isCreate = true;
+            return amis_data($this->form($request)->render());
+        } catch (\Exception $exception) {
+            return amis_error($exception->getMessage());
+        }
+
     }
 
     public function edit(Request $request, $id): JsonResponse
     {
-        $this->isEdit = true;
-        $this->resourceKey = $id;
-        return amis_data($this->form($request)->edit($id)->render());
+        try {
+            $this->isEdit = true;
+            $this->resourceKey = $id;
+            return amis_data($this->form($request)->edit($id)->render());
+        } catch (HttpException $exception) {
+            return amis_error($exception->getMessage());
+        }
     }
 
 
     public function update(Request $request, $id)
     {
-        $this->resourceKey = $id;
-        $this->isEdit = true;
+        try {
+            $this->resourceKey = $id;
+            $this->isEdit = true;
+            /**@var Form $form */
+            $form = $this->form($request);
 
-        /**@var Form $form */
-        $form = $this->form($request);
-
-        if ($id === "quickSave") {
-            return $form->quickUpdate();
+            if ($id === "quickSave") {
+                return $form->quickUpdate();
+            }
+            if ($id === "quickSaveItem") {
+                return $form->quickItemUpdate();
+            }
+            return $form->update($id);
+        } catch (HttpException $exception) {
+            return amis_error($exception->getMessage());
         }
-        if ($id === "quickSaveItem") {
-            return $form->quickItemUpdate();
-        }
-        return $form->update($id);
     }
 
 
     public function store(Request $request)
     {
-        $this->isCreate = true;
-        return $this->form($request)->store();
+        try {
+            $this->isCreate = true;
+            return $this->form($request)->store();
+        } catch (HttpException $exception) {
+            return amis_error($exception->getMessage());
+        }
     }
 
 
     public function destroy(Request $request, $id)
     {
-        $this->resourceKey = $id;
-        return $this->form($request)->destroy($id);
+        try {
+            $this->resourceKey = $id;
+            return $this->form($request)->destroy($id);
+        } catch (HttpException $exception) {
+            return amis_error($exception->getMessage());
+        }
     }
 }

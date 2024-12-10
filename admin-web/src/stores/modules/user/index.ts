@@ -1,4 +1,4 @@
-import type { LoginData } from '@/api/user'
+import type { LoginRes } from '@/api/user'
 import type { UserState } from './types'
 
 const useUserStore = defineStore('user', {
@@ -43,10 +43,9 @@ const useUserStore = defineStore('user', {
     resetInfo() {
       this.$reset()
     },
-    async login(loginForm: LoginData) {
+    async login(loginForm: LoginRes) {
       try {
-        const res = await userLogin(loginForm)
-        setToken(res.data.access_token)
+        setToken(loginForm.access_token)
       } catch (err) {
         clearToken()
         throw err
@@ -62,7 +61,7 @@ const useUserStore = defineStore('user', {
     },
     async logout() {
       try {
-        await userLogout()
+        await apiUserLogout()
       } finally {
         this.logoutCallBack()
       }

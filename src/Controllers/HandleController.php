@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Storage;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class HandleController extends AdminBase
 {
@@ -27,7 +28,7 @@ class HandleController extends AdminBase
             $data = $data['data'];
             $res = (new $class())->$action($request, $data);
             return $res ?? amis_success("请求成功");
-        } catch (Exception $e) {
+        } catch (HttpException $e) {
             return amis_error($e->getMessage());
         }
     }
@@ -41,7 +42,7 @@ class HandleController extends AdminBase
             ]);
             return $this->upload($request);
 
-        } catch (Exception $exception) {
+        } catch (HttpException $exception) {
             return amis_error($exception->getMessage());
         }
     }
@@ -54,7 +55,7 @@ class HandleController extends AdminBase
             ]);
             return $this->upload($request);
 
-        } catch (Exception $exception) {
+        } catch (HttpException $exception) {
             return amis_error($exception->getMessage());
         }
     }
@@ -85,7 +86,7 @@ class HandleController extends AdminBase
                 'link' => $url,
             ];
             return amis_data($data);
-        } catch (Exception $exception) {
+        } catch (HttpException $exception) {
             return amis_error($exception->getMessage());
         }
 

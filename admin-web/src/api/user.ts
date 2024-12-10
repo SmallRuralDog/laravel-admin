@@ -1,10 +1,9 @@
 import type { MenuItem } from '@/stores/modules/user/types'
-import type { ResType } from './http'
 
 export interface LoginData {
   username: string
   password: string
-  rememberPassword: boolean
+  remember: boolean
 }
 
 export interface LoginRes {
@@ -14,23 +13,25 @@ export interface LoginRes {
   refresh_token: string
 }
 
-export function userLogin(data: LoginData) {
-  return http.post<ResType<LoginRes>>('/auth/login', data)
+export function apiUserLogin(data: LoginData) {
+  const method = alovaInstance.Post<LoginRes>('/auth/login', data)
+  return method
 }
 
-export function userLogout() {
-  return http.post('/auth/logout')
+export function apiUserLogout() {
+  const method = alovaInstance.Get('/auth/logout')
+  return method
 }
 
-export function getMenuList() {
-  return http.get<
-    ResType<{
-      active_menus: { [key: string]: string[] }
-      menus: MenuItem[]
-    }>
-  >('/userMenus')
+export function apiGetMenuList() {
+  const method = alovaInstance.Get<{
+    active_menus: { [key: string]: string[] }
+    menus: MenuItem[]
+  }>('/userMenus')
+  return method
 }
 
-export async function getPageRenderer(path: string,params?:any) {
-  return await http.get<ResType<any>>(path,params)
+export async function apiGetPageRenderer(path: string, params?: any) {
+  const method = alovaInstance.Get<any>(path, params)
+  return method
 }

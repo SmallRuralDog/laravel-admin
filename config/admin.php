@@ -4,8 +4,6 @@ use SmallRuralDog\Admin\Models\SystemUser;
 
 return [
     'title' => env('ADMIN_TITLE', 'Laravel Admin'),//后台标题
-    'domain' => env('ADMIN_DOMAIN'),//后台域名
-
     'logo' => '//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image',
     'loginBanner' => [
         [

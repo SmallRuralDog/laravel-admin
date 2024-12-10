@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class IndexController extends AdminBase
 {
@@ -24,7 +25,7 @@ class IndexController extends AdminBase
     {
         $theme = $request->cookie('arco-theme');
 
-        $data['amisVersion'] = $amisVersion = '@6.8.0';
+        $data['amisVersion'] = $amisVersion = '@6.10.0';
         $data['darkCss'] = '';
         if ($theme == 'dark') {
             $data['darkCss'] = ' <link rel="stylesheet" href="/admin/amis/@' . $amisVersion . '/dark.css"/>';
@@ -54,7 +55,7 @@ class IndexController extends AdminBase
         try {
             $menus = Admin::userInfo()->getMenus();
             return amis_data($menus);
-        } catch (Exception $exception) {
+        } catch (HttpException $exception) {
             return amis_error($exception->getMessage());
         }
 

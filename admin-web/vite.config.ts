@@ -29,7 +29,7 @@ export default defineConfig({
         'pinia',
         'vue-router',
         {
-          '@arco-design/web-vue': ['Message', 'Notification','Modal'],
+          '@arco-design/web-vue': ['Message', 'Notification', 'Modal'],
           '@vueuse/core': [
             'useDebounce',
             'useDebounceFn',
@@ -37,7 +37,9 @@ export default defineConfig({
             'useStorage',
             'useLocalStorage',
             'useSession'
-          ]
+          ],
+          'alova/client': ['useRequest', 'usePagination', 'useForm', 'updateState'],
+          'await-to-js': [['default', 'to']]
         }
       ],
       resolvers: [],

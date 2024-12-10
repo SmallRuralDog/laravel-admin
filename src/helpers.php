@@ -261,10 +261,10 @@ function vite_assets(): HtmlString
     }
 
     return new HtmlString(<<<HTML
-    <script type="module" crossorigin src="/admin/assets/C6xmlCMc.js"></script>
-    <link rel="modulepreload" crossorigin href="/admin/assets/CXHZ_blF.js">
-    <link rel="stylesheet" crossorigin href="/admin/assets/D4MQ2JwT.css">
-    <link rel="stylesheet" crossorigin href="/admin/assets/Dr7rAe4W.css">
+    <script type="module" crossorigin src="/admin/assets/DwsKZaH3.js"></script>
+    <link rel="modulepreload" crossorigin href="/admin/assets/JA_6wDNe.js">
+    <link rel="stylesheet" crossorigin href="/admin/assets/DMDu9aLK.css">
+    <link rel="stylesheet" crossorigin href="/admin/assets/BA_y0pdN.css">
     HTML
     );
 }
