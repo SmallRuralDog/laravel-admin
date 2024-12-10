@@ -101,7 +101,14 @@ const useAppStore = defineStore('app', {
      */
     async setLanguage(language: Language) {
       this.language = language
-      await to(apiSetLang(language))
+      const [err] = await to(apiSetLang(language))
+      if (err) {
+        Notification.error({
+          title: i18n.global.t('cuo_wu'),
+          content: err.message
+        })
+        return
+      }
       i18n.global.locale = language
       location.reload()
     }

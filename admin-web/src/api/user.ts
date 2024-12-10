@@ -39,6 +39,10 @@ export async function apiGetPageRenderer(path: string, params?: any) {
 
 //setLang
 export function apiSetLang(lang: Language) {
-  const method = alovaInstance.Post('/setLang', { lang })
+  const method = alovaInstance.Get('/setLang', {
+    params: {
+      lang
+    }
+  })
   return method
 }

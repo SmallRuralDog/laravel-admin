@@ -12,23 +12,21 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class IndexController extends AdminBase
 {
 
-    public array $noNeedLogin = ['root', 'index'];
+    public array $noNeedLogin = ['root', 'index','setLang'];
 
-    public array $noNeedPermission = ['root', 'index', 'userMenus'];
+    public array $noNeedPermission = ['root', 'index','setLang', 'userMenus'];
 
     public function index(Request $request)
     {
         return redirect(route('admin.root'));
     }
 
-    public function setLang(Request $request)
+    public function setLang(Request $request): JsonResponse
     {
         try {
             $lang = $request->input('lang');
-            if ($lang) {
-                $cookie = cookie('admin-language', $lang, 86400);
-                return amis_success()->cookie($cookie);
-            }
+            $cookie = cookie('admin-language', $lang, 60*24*10);
+            return amis_data([])->cookie($cookie);
         } catch (Exception $exception) {
             return amis_error($exception->getMessage());
         }
