@@ -37,7 +37,7 @@ export const alovaInstance = createAlova({
       const data = await response.data
       if (data.status !== 0) {
         if (data.status == 401) {
-          location.reload()
+          useUserStore().logoutCallBack()
           return
         }
         throw new Error(data.msg)
@@ -46,7 +46,8 @@ export const alovaInstance = createAlova({
     },
     onError: (error) => {
       if (error.response.status === 401) {
-        location.reload()
+        useUserStore().logoutCallBack()
+        return
       }
       throw new Error(error.response.data.msg ?? error.response.data.message)
     }

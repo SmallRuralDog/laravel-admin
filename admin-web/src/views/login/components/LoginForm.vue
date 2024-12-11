@@ -99,7 +99,7 @@ const { form, loading, send } = useForm(
       username: '',
       password: '',
       verification_code: '',
-      remember: false
+      remember: true
     }
   }
 )
