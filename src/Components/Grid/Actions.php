@@ -200,6 +200,6 @@ class Actions
         if ($this->isRowAction()) {
             return $res->toArray();
         }
-        return [DropdownButton::make()->label(__('admin::admin.actions'))->level('link')->buttons($res->toArray())];
+        return [DropdownButton::make()->label(__('admin::admin.action'))->level('link')->buttons($res->toArray())];
     }
 }
