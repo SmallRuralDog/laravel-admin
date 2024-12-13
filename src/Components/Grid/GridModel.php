@@ -169,7 +169,25 @@ class GridModel
             $this->callData($pageData);
             return $this->toData($pageData);
         }
-        $prePage = (int)$this->grid->getRequest()->input('pageSize', 10);
+
+        $prePage = 10;
+        //pageSize
+        if ($this->grid->getRequest()->has('pageSize')) {
+            $prePage = (int)$this->grid->getRequest()->input('pageSize', 10);
+        }
+        //page_size
+        if ($this->grid->getRequest()->has('page_size')) {
+            $prePage = (int)$this->grid->getRequest()->input('page_size', 10);
+        }
+        //perPage
+        if ($this->grid->getRequest()->has('perPage')) {
+            $prePage = (int)$this->grid->getRequest()->input('perPage', 10);
+        }
+        //per_page
+        if ($this->grid->getRequest()->has('per_page')) {
+            $prePage = (int)$this->grid->getRequest()->input('per_page', 10);
+        }
+
         $pageData = $this->builder->paginate($prePage);
         $items = $pageData->items();
         $this->prepareData($items);
