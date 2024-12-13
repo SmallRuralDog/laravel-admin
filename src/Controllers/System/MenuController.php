@@ -29,6 +29,12 @@ class MenuController extends AdminController
                 ->hideFooter()
                 ->loadDataOnce()
                 ->toTree();
+
+            $grid->useRow(function ($item) {
+                $item->name = __($item->name);
+                return $item;
+            });
+
             $grid->useCRUD()
                 ->expandConfig([
                     'expand' => 'first'

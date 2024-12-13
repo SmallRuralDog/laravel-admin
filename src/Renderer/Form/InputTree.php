@@ -21,6 +21,7 @@ namespace SmallRuralDog\Admin\Renderer\Form;
  * @method self treeContainerClassName($v)
  * @method self deferApi($v)
  * @method self menuTpl($v)
+ * @method self heightAuto($v)
  */
 class InputTree extends FormOptions
 {

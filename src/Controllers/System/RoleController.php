@@ -9,6 +9,7 @@ use SmallRuralDog\Admin\Controllers\AdminController;
 use SmallRuralDog\Admin\Enums\DataPermissionsType;
 use SmallRuralDog\Admin\Models\SystemRole;
 use SmallRuralDog\Admin\Renderer\Button;
+use SmallRuralDog\Admin\Renderer\Flex;
 use SmallRuralDog\Admin\Renderer\Form\Group;
 use SmallRuralDog\Admin\Renderer\Form\InputTree;
 use SmallRuralDog\Admin\Renderer\Form\Select;
@@ -75,11 +76,21 @@ class RoleController extends AdminController
                     ->showOutline(true)
                     ->initiallyOpen(false)
                     ->unfoldedLevel(2)
-                    ->treeContainerClassName("role-menu-tree")
+                    ->heightAuto(true)
+                    ->style([
+                        'height' => 'calc(100vh - 350px)'
+                    ])
                     ->options(function () {
-                        $list = Admin::userInfo()->getAllPermissionMenus()->toArray();
+                        $list = Admin::userInfo()->getAllPermissionMenus()
+                            ->map(function ($item) {
+                                $item->name = __($item->name);
+                                return $item;
+                            })
+                            ->toArray();
                         return arr2tree($list);
                     })),
+
+
             ]);
         });
 

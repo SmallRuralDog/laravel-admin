@@ -9,6 +9,7 @@ namespace SmallRuralDog\Admin\Renderer;
  * @method $this direction($v)
  * @method $this items($v)
  * @method $this style($v)
+ * @method $this isFixedHeight($v)
  */
 class Flex extends BaseSchema
 {
