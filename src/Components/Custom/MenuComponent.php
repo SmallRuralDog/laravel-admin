@@ -40,7 +40,12 @@ class MenuComponent extends AutoRoute
         } else {
             $list = $orm
                 ->orderByDesc('order')
-                ->get()->toArray();
+                ->get()
+                ->map(function ($item) {
+                    $item->name = __($item->name);
+                    return $item;
+                })
+                ->toArray();
         }
 
         return amis_data([
