@@ -44,11 +44,11 @@ class IndexController extends AdminBase
         }
 
         $config = [
-            'title' => config('admin.title'),
+            'title' => __(config('admin.title')),
             'logo' => config('admin.logo'),
             'loginBanner' => config('admin.loginBanner'),
-            'loginTitle' => config('admin.loginTitle'),
-            'loginDesc' => config('admin.loginDesc'),
+            'loginTitle' => __(config('admin.loginTitle')),
+            'loginDesc' => __(config('admin.loginDesc')),
             'apiBase' => admin_url("/"),
             'prefix' => config('admin.route.prefix'),
             'openCaptcha' => false,

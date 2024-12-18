@@ -24,6 +24,7 @@ return [
     'list' => '列表',
     'show' => '详情',
     'update' => '更新',
+    'old_password' => '旧密码',
     'old_password_error' => '旧密码错误',
     'name' => '名称',
     'new_password' => '密码',

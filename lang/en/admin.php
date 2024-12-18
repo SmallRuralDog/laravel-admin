@@ -24,6 +24,7 @@ return [
     'list' => 'List',
     'show' => 'Details',
     'update' => 'Update',
+    'old_password' => 'Old Password',
     'old_password_error' => 'Old Password Error',
     'name' => 'Name',
     'new_password' => 'New Password',
