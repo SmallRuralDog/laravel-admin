@@ -118,7 +118,7 @@ trait HasPermissions
         }
         $permission = $this->getAllPermission();
 
-        if(is_array($ability)){
+        if (is_array($ability)) {
             return collect($permission)->intersect($ability)->isNotEmpty();
         }
 
@@ -185,6 +185,35 @@ trait HasPermissions
                 break;
         }
         return [$check, $deptIds];
+    }
+
+    /**
+     * 获取用户的顶级部门
+     */
+    public function getUserTopDept(): ?SystemDept
+    {
+        $dept = $this->dept;
+        if ($dept) {
+            $parent = $dept->parent;
+            while (!!$parent) {
+                $dept = $parent;
+                $parent = $parent->parent;
+            }
+            return $parent ?? $dept;
+        }
+        return $dept;
+    }
+
+    /**
+     * 获取部门自定义配置
+     */
+    public function getDeptConfig(): array
+    {
+        $dept = $this->dept;
+        $topDept = $this->getUserTopDept();
+        $topDeptConfig = $topDept?->custom_config ?? [];
+        $deptConfig = $dept->custom_config ?? [];
+        return array_merge($topDeptConfig, $deptConfig);
     }
 
     /**

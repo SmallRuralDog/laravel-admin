@@ -70,4 +70,5 @@ return [
     'dept_management' => 'Quản lý phòng ban',
     'menu_management' => 'Quản lý menu',
     'setting_management' => 'Quản lý cài đặt',
+    'custom_setting' => 'Cài đặt khusus',
 ];

@@ -71,4 +71,5 @@ return [
     'dept_management' => 'Department',
     'menu_management' => 'Menu',
     'setting_management' => 'Setting',
+    'custom_setting' => 'Custom Setting',
 ];

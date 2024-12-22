@@ -71,4 +71,5 @@ return [
     'dept_management' => '部门管理',
     'menu_management' => '菜单管理',
     'setting_management' => '配置管理',
+    'custom_config' => '自定义配置',
 ];

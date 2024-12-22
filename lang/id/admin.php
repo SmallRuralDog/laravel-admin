@@ -70,4 +70,5 @@ return [
     'dept_management' => 'Manajemen Departemen',
     'menu_management' => 'Manajemen Menu',
     'setting_management' => 'Manajemen Pengaturan',
+    'custom_setting' => 'Pengaturan Khusus',
 ];

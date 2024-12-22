@@ -8,6 +8,7 @@ use SmallRuralDog\Admin\Components\Grid;
 use SmallRuralDog\Admin\Controllers\AdminController;
 use SmallRuralDog\Admin\Models\SystemDept;
 use SmallRuralDog\Admin\Renderer\Each;
+use SmallRuralDog\Admin\Renderer\Form\InputKV;
 use SmallRuralDog\Admin\Renderer\Form\InputNumber;
 use SmallRuralDog\Admin\Renderer\Tpl;
 
@@ -58,6 +59,9 @@ class DeptController extends AdminController
                 $form->item('order', __("admin::admin.order"))
                     ->value(1)
                     ->useFormItem(InputNumber::make()),
+
+                $form->item('custom_config', __("admin::admin.custom_config"))
+                    ->useFormItem(InputKV::make()),
 
             ]);
         });

@@ -25,7 +25,7 @@ class SystemDept extends Model
     protected $guarded = [];
 
     protected $casts = [
-
+        'custom_config' => 'array',
     ];
 
     public function menus(): BelongsToMany
@@ -46,6 +46,11 @@ class SystemDept extends Model
     public function children()
     {
         return $this->hasMany(SystemDept::class, 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(SystemDept::class, 'parent_id', 'id');
     }
 
     /**

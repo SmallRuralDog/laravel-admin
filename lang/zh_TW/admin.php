@@ -70,4 +70,5 @@ return [
     'dept_management' => '部門管理',
     'menu_management' => '菜單管理',
     'setting_management' => '配置管理',
+    'custom_setting' => '自定義配置',
 ];
