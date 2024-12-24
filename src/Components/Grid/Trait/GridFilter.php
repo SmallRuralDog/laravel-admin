@@ -16,11 +16,15 @@ trait GridFilter
      */
     public function filter($fun): Grid
     {
-        $this->crud->filterTogglable(false);
         $fun($this->filter);
         return $this;
     }
 
+    
+
+    /**
+     * @return array
+     */
     public function getFilterField(): array
     {
         return $this->filter->getFilterField();
