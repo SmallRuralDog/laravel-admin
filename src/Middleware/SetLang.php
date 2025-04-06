@@ -14,6 +14,8 @@ class SetLang
             // - 替换成 _
             $adminLanguage = str_replace('-', '_', $adminLanguage);
             app()->setLocale($adminLanguage);
+        }else{
+            app()->setLocale(admin_config('language.default'));
         }
         return $next($request);
     }
