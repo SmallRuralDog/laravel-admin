@@ -72,6 +72,16 @@ class Install extends Command
             //复制 SettingsController.php 文件
             copy(__DIR__.('/stubs/Controllers/SettingsController.php'), admin_config('directory') . '/Controllers/SettingsController.php');
         }
+        //判断 admin/Components 目录是否存在
+        if (!is_dir(admin_config('directory') . '/Components')) {
+            //创建 admin/Components 目录
+            mkdir(admin_config('directory') . '/Components');
+        }
+        //判断 admin/Components/Display.php 文件是否存在
+        if (!file_exists(admin_config('directory') . '/Components/Display.php')) {
+            //复制 Display.php 文件
+            copy(__DIR__.('/stubs/Components/Display.php'), admin_config('directory') . '/Components/Display.php');
+        }
     }
 
 }

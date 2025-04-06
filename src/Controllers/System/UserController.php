@@ -33,7 +33,7 @@ class UserController extends AdminController
             $grid->column('name', __("admin::admin.name"));
             $grid->column('roles', __("admin::admin.roles"))
                 ->remark(__("admin::admin.roles_remark"))
-                ->useTableColumn(Each::make()->items(Tpl::make()->tpl("<span class='label label-default m-l-sm'>\${name}</span>")));
+                ->useTableColumn(Each::make()->items(Tpl::make()->tpl("<span class='label label-primary m-l-sm'>\${name}</span>")));
 
             $grid->column('dept.name', __("admin::admin.dept"))->remark(__("admin::admin.dept_remark"));
 

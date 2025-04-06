@@ -2,6 +2,7 @@
 
 namespace SmallRuralDog\Admin\Components\Grid\Trait;
 
+use App\Admin\Components\Display;
 use Closure;
 use SmallRuralDog\Admin\Renderer\BaseSchema;
 use SmallRuralDog\Admin\Renderer\Date;
@@ -14,11 +15,12 @@ use SmallRuralDog\Admin\Renderer\Tpl;
 
 trait ColumnDisplay
 {
+    use Display;
 
     /**
      * 图片渲染
      */
-    public function image(int $w = 80, int $h = 80, Closure $closure = null): self
+    public function image(int $w = 80, int $h = 80, ?Closure $closure = null): self
     {
         $image = Image::make()->width($w)->height($h);
         if ($closure) {
@@ -31,7 +33,7 @@ trait ColumnDisplay
     /**
      * 标签渲染
      */
-    public function label(string $type = 'info', string $size = 'sm', Closure $closure = null): self
+    public function label(string $type = 'info', string $size = 'sm', ?Closure $closure = null): self
     {
         $tpl = Tpl::make()->tpl("<span class='label label-{$type} label-{$size} m-r-sm'><%= this.{$this->name} %></span>");
         if ($closure) {
@@ -44,7 +46,7 @@ trait ColumnDisplay
     /**
      * 循环渲染
      */
-    public function each(Closure $closure = null): self
+    public function each(?Closure $closure = null): self
     {
         $each = Each::make();
         $each->placeholder(__("admin::admin.no_data"));
@@ -62,7 +64,7 @@ trait ColumnDisplay
     /**
      * 日期渲染
      */
-    public function date(Closure $closure = null): static
+    public function date(?Closure $closure = null): static
     {
         $date = Date::make();
         if ($closure) {
@@ -75,7 +77,7 @@ trait ColumnDisplay
     /**
      * 状态渲染
      */
-    public function status(Closure $closure = null): self
+    public function status(?Closure $closure = null): self
     {
         $status = Status::make();
         if ($closure) {
@@ -110,7 +112,7 @@ trait ColumnDisplay
     /**
      * 多个字段显示
      */
-    public function multipleDisplay(array $items = [], $column = true, Closure $closure = null): self
+    public function multipleDisplay(array $items = [], $column = true, ?Closure $closure = null): self
     {
 
         $flex = Flex::make()->items($items);
