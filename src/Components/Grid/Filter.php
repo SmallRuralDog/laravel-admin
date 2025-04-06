@@ -20,7 +20,7 @@ class Filter extends AmisForm
 
     protected string $addColumnsClass = "";
 
-    public string $labelWidth = "80px";
+    public string $labelWidth = "100px";
 
     public function __construct()
     {
@@ -28,7 +28,7 @@ class Filter extends AmisForm
         $this->submitText("");
         $this
             ->mode("horizontal")
-            ->labelAlign("left")
+            //->labelAlign("left")
             ->wrapWithPanel(false)
             ->className('pb-4 pt-2 mx-1 admin-grid-filter');
     }
@@ -67,7 +67,7 @@ class Filter extends AmisForm
     }
 
     /**
-     * 设置搜索表单label宽度 例如 20% 默认25%
+     * 设置搜索表单 label 宽度 例如 20% 默认 25%
      * @param string $labelWidth
      * @return $this
      */
@@ -78,7 +78,7 @@ class Filter extends AmisForm
     }
 
     /**
-     * 设置搜索表单Grid布局额外的class
+     * 设置搜索表单 Grid 布局额外的 class
      * @param string $addColumnsClass
      * @return $this
      */
@@ -102,8 +102,8 @@ class Filter extends AmisForm
         $cols = collect([
             'xl4:grid-cols-5',
             'xl3:grid-cols-4',
-            'xl2:grid-cols-4',
-            'xl:grid-cols-3',
+            'xl2:grid-cols-3',
+            'xl:grid-cols-2',
             'lg:grid-cols-2'
         ])->join(" ");
 

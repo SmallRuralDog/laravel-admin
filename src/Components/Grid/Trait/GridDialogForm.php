@@ -8,11 +8,11 @@ use SmallRuralDog\Admin\Renderer\Action\DialogAction;
 
 trait GridDialogForm
 {
-    protected bool $isDialogForm = true;
+    protected bool $isDialogForm = false;
 
     protected DialogForm $dialogForm;
 
-    protected bool $isDrawerForm = false;
+    protected bool $isDrawerForm = true;
 
     /**
      * 弹窗表单模式

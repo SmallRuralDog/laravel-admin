@@ -60,6 +60,7 @@ class UserController extends AdminController
                     $q->where('created_at', '<=', $v[1]);
                 })->useFormItem(InputDateRange::make());
             });
+            $grid->drawer();
         });
     }
 
