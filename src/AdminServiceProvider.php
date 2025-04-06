@@ -12,6 +12,7 @@ class AdminServiceProvider extends ServiceProvider
 
     protected array $commands = [
         Consoles\Install::class,
+        Consoles\Update::class,
         Consoles\CreateUser::class,
 
     ];

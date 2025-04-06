@@ -10,7 +10,7 @@ class Install extends Command
 {
     protected $signature = 'admin:install';
 
-    protected $description = 'Install the Laravel Admin';
+    protected $description = '安装 Laravel Admin';
 
     public function handle()
     {
@@ -66,6 +66,11 @@ class Install extends Command
         if (!file_exists(admin_config('directory') . '/Controllers/HomeController.php')) {
             //复制 HomeController.php 文件
             copy(__DIR__.('/stubs/Controllers/HomeController.php'), admin_config('directory') . '/Controllers/HomeController.php');
+        }
+        //判断 admin/Controllers/SettingsController.php 文件是否存在
+        if (!file_exists(admin_config('directory') . '/Controllers/SettingsController.php')) {
+            //复制 SettingsController.php 文件
+            copy(__DIR__.('/stubs/Controllers/SettingsController.php'), admin_config('directory') . '/Controllers/SettingsController.php');
         }
     }
 
