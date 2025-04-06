@@ -73,13 +73,14 @@ class MenuComponent extends AutoRoute
         $nameList = ['.create', '.edit', '.destroy', '.store', '.update'];
 
         $hiddenList = ['view', 'handleAction','uploadImage','uploadFile','userMenus','auth/captcha', 'auth/login', 'auth/logout'];
+        $hiddenList = array_merge($hiddenList, admin_config('hidden_routes', []));
         $hiddenList = array_merge($hiddenList, SystemMenu::query()->pluck('path')->toArray());
 
 
         /** @var \Illuminate\Routing\Route $route */
         foreach ($routes as $route) {
             $routePath = $route->uri();
-            //不是$suffix开始的路由不显示
+            //不是$suffix 开始的路由不显示
             if (!str_starts_with($routePath, $suffix)) {
                 continue;
             }
@@ -151,7 +152,7 @@ class MenuComponent extends AutoRoute
         foreach ($routes as $route) {
             $routePath = $route->uri();
             $routeName = $route->getName();
-            //不是$suffix开始的路由不显示
+            //不是$suffix 开始的路由不显示
             if (!str_starts_with($routePath, $suffix)) {
                 continue;
             }
@@ -161,7 +162,7 @@ class MenuComponent extends AutoRoute
             }
             if($path && !str_starts_with($routePath, $path)) continue;
 
-            //不是$nameList结尾的路由不显示
+            //不是$nameList 结尾的路由不显示
             $isCheck = false;
             foreach ($nameList as $n) {
                 if ($routeName && str_ends_with($routeName, $n)) {

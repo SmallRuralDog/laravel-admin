@@ -56,4 +56,7 @@ return [
         'mimes' => 'jpeg,bmp,png,gif,jpg',
         'file_mimes' => 'doc,docx,xls,xlsx,ppt,pptx,pdf,zip,rar,7z',
     ],
+    'hidden_routes' => [
+        'setLang'
+    ],
 ];

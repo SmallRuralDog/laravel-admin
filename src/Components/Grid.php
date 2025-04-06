@@ -26,7 +26,7 @@ class Grid
     use GridCRUD, GridToolbar, GridData, GridTree, GridFilter, GridActions, GridDialogForm, ModelBase, GridPermission;
 
     /**
-     * 页面Page对象
+     * 页面 Page 对象
      * @var Page
      */
     protected Page $page;
@@ -79,7 +79,7 @@ class Grid
     }
 
     /**
-     * 创建一个Grid
+     * 创建一个 Grid
      */
     public static function make(Builder $builder, Closure $fun): static
     {
@@ -108,7 +108,7 @@ class Grid
     }
 
     /**
-     * 渲染Grid
+     * 渲染 Grid
      */
     public function render()
     {
