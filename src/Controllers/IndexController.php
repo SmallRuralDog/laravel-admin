@@ -35,12 +35,13 @@ class IndexController extends AdminBase
 
     public function root(Request $request): Response
     {
-        $theme = $request->cookie('arco-theme');
+        $theme = $_COOKIE['arco-theme'];
+
 
         $data['amisVersion'] = $amisVersion = '@6.12.0';
         $data['darkCss'] = '';
         if ($theme == 'dark') {
-            $data['darkCss'] = ' <link rel="stylesheet" href="/admin/amis/@' . $amisVersion . '/dark.css"/>';
+            $data['darkCss'] = ' <link rel="stylesheet" href="/admin/amis/' . $amisVersion . '/dark.css"/>';
         }
 
         $config = [
