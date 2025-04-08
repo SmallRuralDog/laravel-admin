@@ -35,7 +35,7 @@ class IndexController extends AdminBase
 
     public function root(Request $request): Response
     {
-        $theme = $_COOKIE['arco-theme'];
+        $theme = data_get($_COOKIE,'arco-theme','light');
 
 
         $data['amisVersion'] = $amisVersion = '@6.12.0';
