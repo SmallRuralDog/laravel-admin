@@ -2,7 +2,7 @@
 
 namespace SmallRuralDog\Admin\Renderer\Form;
 
-use Shopwwi\WebmanFilesystem\Facade\Storage;
+use Illuminate\Support\Facades\Storage;
 use SmallRuralDog\Admin\Renderer\BaseSchema;
 
 /**
@@ -44,7 +44,7 @@ class FormBase extends BaseSchema
     protected function deleteFile($file): bool
     {
         if (is_string($file)) {
-            $storage = Storage::adapter(admin_config('upload.disk'));
+            $storage = Storage::disk(admin_config('upload.disk'));
             if ($storage->exists($file)) {
                 return $storage->delete($file);
             }
