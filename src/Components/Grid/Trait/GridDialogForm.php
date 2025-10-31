@@ -42,12 +42,32 @@ trait GridDialogForm
 
     /**
      * 设置弹窗表单大小 sm | lg | md | xl
-     * @param string $size
+     * @param string|int $size
      * @return void
      */
-    public function setDialogFormSize(string $size): void
+    public function setDialogFormSize(string|int $size): void
     {
         $this->dialogForm->size($size);
+    }
+
+    /**
+     * 设置弹窗表单宽度
+     * @param string|int $width
+     * @return void
+     */
+    protected function setDialogFormWidth(string|int $width): void
+    {
+        $this->dialogForm->width($width);
+    }
+
+    /**
+     * 设置弹窗表单高度
+     * @param string|int $height
+     * @return void
+     */
+    protected function setDialogFormHeight(string|int $height): void
+    {
+        $this->dialogForm->height($height);
     }
 
     /**

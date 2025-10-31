@@ -13,11 +13,15 @@ class DialogForm
     protected Grid $grid;
     protected ?Form $form = null;
 
-    protected DialogAction $createDialogAction;
-    protected DialogAction $editDialogAction;
+    protected DialogAction|DrawerAction $createDialogAction;
+    protected DialogAction|DrawerAction $editDialogAction;
 
 
     protected int|string $size = 'lg';
+
+
+    protected int|string $width = "";
+    protected int|string $height  = "";
 
     public function __construct(Grid $grid)
     {
@@ -33,6 +37,26 @@ class DialogForm
     public function size(int|string $size): DialogForm
     {
         $this->size = $size;
+        return $this;
+    }
+
+    /**
+     * 设置弹窗宽度
+     */
+    public function width(int|string $width): DialogForm
+    {
+        $this->size("custom");
+        $this->width = $width;
+        return $this;
+    }
+
+    /**
+     * 设置弹窗高度
+     */
+    public function height(int|string $height): DialogForm
+    {
+        $this->size("custom");
+        $this->height = $height;
         return $this;
     }
 
@@ -92,6 +116,11 @@ class DialogForm
                 'size' => $this->size,
                 'body' => Service::make()->schemaApi($api),
             ];
+
+            if ($this->width) {
+                $body['width'] = $this->width;
+            }
+
             if ($this->grid->isDrawerForm()) {
                 $this->editDialogAction->actionType('drawer')->drawer($body);
             } else {
@@ -104,6 +133,9 @@ class DialogForm
             'size' => $this->size,
             'body' => $this->form ?: Service::make()->schemaApi($api),
         ];
+        if ($this->width) {
+            $body['width'] = $this->width;
+        }
         if ($this->grid->isDrawerForm()) {
             $this->createDialogAction->actionType('drawer')->drawer($body);
         } else {
