@@ -38,7 +38,7 @@ class IndexController extends AdminBase
         $theme = data_get($_COOKIE,'arco-theme','light');
 
 
-        $data['amisVersion'] = $amisVersion = '@6.12.0';
+        $data['amisVersion'] = $amisVersion = '@6.13.0';
         $data['darkCss'] = '';
         if ($theme == 'dark') {
             $data['darkCss'] = ' <link rel="stylesheet" href="/admin/amis/' . $amisVersion . '/dark.css"/>';
