@@ -55,7 +55,7 @@ trait GridDialogForm
      * @param string|int $width
      * @return void
      */
-    protected function setDialogFormWidth(string|int $width): void
+    public function setDialogFormWidth(string|int $width): void
     {
         $this->dialogForm->width($width);
     }
@@ -65,7 +65,7 @@ trait GridDialogForm
      * @param string|int $height
      * @return void
      */
-    protected function setDialogFormHeight(string|int $height): void
+    public function setDialogFormHeight(string|int $height): void
     {
         $this->dialogForm->height($height);
     }
