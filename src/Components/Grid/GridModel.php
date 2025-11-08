@@ -164,7 +164,7 @@ class GridModel
         $this->setWhere();
         $this->setOrder();
         if ($this->grid->isLoadDataOnce()) {
-            $pageData = $this->builder->get();
+            $pageData = $this->builder->get()->toArray();
             $this->prepareData($pageData);
             $this->callData($pageData);
             return $this->toData($pageData);
@@ -188,13 +188,13 @@ class GridModel
             $prePage = (int)$this->grid->getRequest()->input('per_page', 10);
         }
 
-        $pageData = $this->builder->paginate($prePage);
-        $items = $pageData->items();
+        $pageData = $this->builder->paginate($prePage)->toArray();
+        $items = data_get($pageData,'data',[]);
         $this->prepareData($items);
         $items = $this->callData($items);
         return [
             'items' => $items,
-            'total' => $pageData->total(),
+            'total' => data_get($pageData,'total',0),
         ];
     }
 
