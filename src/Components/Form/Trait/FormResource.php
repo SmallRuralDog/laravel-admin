@@ -369,7 +369,7 @@ trait FormResource
                 $this->builder->with($relation);
             }
         });
-        $this->editData = $this->builder->findOrFail($this->editKey);
+        $this->editData = $this->builder->findOrFail($this->editKey)->toArray();
 
 
         $this->prepareEditData($this->editData);
