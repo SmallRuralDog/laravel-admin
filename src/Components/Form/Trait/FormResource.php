@@ -369,15 +369,13 @@ trait FormResource
                 $this->builder->with($relation);
             }
         });
-        $this->editData = $this->builder->findOrFail($this->editKey)->toArray();
-
-
-        $this->prepareEditData($this->editData);
-
+        $this->editData = $this->builder->findOrFail($this->editKey);
         $res = $this->callEdiData($this->editData);
         if ($res instanceof JsonResponse) {
             return $res;
         }
+        $this->prepareEditData(collect($this->editData)->toArray());;
+
         return null;
     }
 
